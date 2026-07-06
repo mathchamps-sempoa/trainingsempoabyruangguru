@@ -1,0 +1,1218 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sempoa Teacher Academy</title>
+  <meta name="description" content="Learning Journey Training Lite Sempoa untuk calon pengajar Mathcamps by Ruangguru." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --blue:#0594d9;
+      --blue-2:#005c9d;
+      --cyan:#45c8e8;
+      --orange:#f9b233;
+      --orange-2:#e98300;
+      --cream:#fff4dd;
+      --mint:#e9fff8;
+      --pink:#fff6f0;
+      --purple:#0a6fb7;
+      --ink:#102a43;
+      --muted:#63758b;
+      --line:#d6eaf8;
+      --white:#ffffff;
+      --danger:#dc2626;
+      --success:#0f8f62;
+      --warning:#d97706;
+      --shadow:0 24px 64px rgba(5,43,77,.13);
+      --soft-shadow:0 14px 34px rgba(5,43,77,.08);
+      --radius:28px;
+    }
+
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      font-family:'Plus Jakarta Sans',system-ui,-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(circle at 8% 0%, rgba(69,200,232,.18), transparent 32%),
+        radial-gradient(circle at 92% 6%, rgba(249,178,51,.22), transparent 28%),
+        radial-gradient(circle at 55% 100%, rgba(0,92,157,.10), transparent 36%),
+        linear-gradient(135deg,#f4fbff 0%,#fffdf6 48%,#eef9ff 100%);
+      min-height:100vh;
+      overflow-x:hidden;
+    }
+
+    button,input,a{font:inherit}
+    button{border:0;cursor:pointer}
+    a{color:inherit;text-decoration:none}
+    .hidden{display:none!important}
+
+    .noise{
+      position:fixed;inset:0;pointer-events:none;opacity:.5;z-index:-1;
+      background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%231f7ae0' stroke-opacity='.08' stroke-width='2'%3E%3Cpath d='M20 30h24M32 18v24M116 126h22M127 115v22M118 38c8 0 14 6 14 14s-6 14-14 14-14-6-14-14 6-14 14-14zM38 102c7 0 12 5 12 12s-5 12-12 12-12-5-12-12 5-12 12-12z'/%3E%3C/g%3E%3C/svg%3E");
+    }
+
+    .login-screen{
+      width:min(1120px,calc(100% - 36px));
+      min-height:100vh;
+      margin:auto;
+      display:grid;
+      place-items:center;
+      padding:36px 0;
+    }
+
+    .login-card{
+      width:100%;
+      display:grid;
+      grid-template-columns:1.05fr .95fr;
+      gap:24px;
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.9);
+      box-shadow:var(--shadow);
+      border-radius:36px;
+      overflow:hidden;
+      backdrop-filter:blur(16px);
+    }
+
+    .login-hero{
+      padding:46px;
+      background:
+        linear-gradient(135deg,rgba(0,92,157,.96),rgba(5,148,217,.90) 52%,rgba(249,178,51,.72)),
+        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp') center/cover;
+      color:white;
+      position:relative;
+      overflow:hidden;
+    }
+    .login-hero::after{
+      content:"";position:absolute;right:-90px;bottom:-90px;width:260px;height:260px;border-radius:50%;
+      background:rgba(255,184,77,.30);
+    }
+    .brand-pill{
+      display:inline-flex;align-items:center;gap:10px;
+      background:rgba(255,255,255,.16);
+      border:1px solid rgba(255,255,255,.20);
+      padding:9px 14px;border-radius:999px;font-weight:800;
+    }
+    .login-hero h1{font-size:clamp(34px,4vw,58px);line-height:1.02;margin:28px 0 16px;letter-spacing:-.04em}
+    .login-hero p{font-size:17px;line-height:1.7;margin:0;max-width:570px;color:rgba(255,255,255,.88)}
+    .hero-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:34px;position:relative;z-index:1}
+    .hero-stat{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.18);border-radius:22px;padding:16px}
+    .hero-stat strong{display:block;font-size:24px;line-height:1}
+    .hero-stat span{display:block;margin-top:8px;color:rgba(255,255,255,.82);font-size:12px;font-weight:700}
+
+    .login-form-wrap{padding:46px;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(180deg,#ffffff,#fbfdff)}
+    .academy-mark{width:76px;height:76px;border-radius:24px;display:grid;place-items:center;background:linear-gradient(135deg,#eaf3ff,#fff8ec);border:1px solid var(--line);box-shadow:var(--soft-shadow);font-size:34px;margin-bottom:20px}
+    .credential-note{margin:16px 0 0;background:#f7fbff;border:1px solid #dbeafe;border-radius:20px;padding:14px 16px;color:#375a7a;line-height:1.6;font-weight:700;font-size:13px}
+    .login-form-wrap h2{font-size:30px;margin:0 0 6px;letter-spacing:-.03em}
+    .login-form-wrap .hint{margin:0;color:var(--muted);line-height:1.6}
+    .form-group{margin-top:18px}
+    .form-group label{display:block;font-weight:800;margin-bottom:8px;font-size:13px;color:#294763}
+    .input{
+      width:100%;height:54px;border:1px solid var(--line);border-radius:17px;padding:0 16px;background:#fff;
+      color:var(--ink);outline:0;box-shadow:0 8px 18px rgba(23,50,77,.04);transition:.2s;
+    }
+    .input:focus{border-color:rgba(31,122,224,.55);box-shadow:0 0 0 4px rgba(31,122,224,.10)}
+    .primary-btn,.secondary-btn,.ghost-btn,.danger-btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:17px;font-weight:900;transition:.2s;text-align:center;
+    }
+    .primary-btn{background:linear-gradient(135deg,var(--blue-2),var(--blue));color:#fff;box-shadow:0 14px 28px rgba(26,115,217,.22);padding:15px 18px}
+    .primary-btn:hover{transform:translateY(-1px);box-shadow:0 18px 34px rgba(31,122,224,.30)}
+    .secondary-btn{background:#eef6ff;color:var(--blue-2);padding:13px 16px}
+    .secondary-btn:hover{background:#e1f0ff}
+    .ghost-btn{background:#fff;color:var(--ink);border:1px solid var(--line);padding:12px 15px}
+    .ghost-btn:hover{background:#f7fbff}
+    .danger-btn{background:#fff0f0;color:#c52222;padding:12px 15px;border:1px solid #ffd7d7}
+    .wide{width:100%;height:54px;margin-top:22px}
+    .tiny-note{font-size:12px;color:var(--muted);line-height:1.55;margin-top:14px}
+    .alert{margin-top:14px;padding:14px 16px;border-radius:18px;font-size:13px;line-height:1.55;font-weight:700}
+    .alert.error{background:#fff1f1;color:#b42318;border:1px solid #ffd9d9}
+    .alert.success{background:#ecfff7;color:#087443;border:1px solid #c7f7df}
+    .alert.info{background:#eef7ff;color:#175cd3;border:1px solid #d7eaff}
+
+    .app-shell{
+      min-height:100vh;
+      display:grid;
+      grid-template-columns:310px 1fr;
+      gap:22px;
+      padding:22px;
+      width:min(1480px,100%);
+      margin:0 auto;
+    }
+
+    .sidebar{
+      position:sticky;top:22px;height:calc(100vh - 44px);
+      background:rgba(255,255,255,.86);
+      border:1px solid rgba(255,255,255,.92);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:20px;
+      display:flex;
+      flex-direction:column;
+      overflow:hidden;
+      backdrop-filter:blur(16px);
+    }
+    .profile-card{background:linear-gradient(145deg,#eef7ff,#ffffff);border:1px solid #fff;border-radius:26px;padding:16px;display:flex;gap:13px;align-items:center}
+    .profile-avatar{width:58px;height:58px;border-radius:20px;background:#fff;border:3px solid #fff;box-shadow:0 10px 22px rgba(23,50,77,.10);display:grid;place-items:center;font-size:31px;overflow:hidden;flex:0 0 auto}
+    .profile-avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .profile-card b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+    .profile-card small{display:block;color:var(--muted);font-weight:700;margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:170px}
+    .nav-list{display:grid;gap:10px;margin:20px 0}
+    .nav-btn{width:100%;display:flex;align-items:center;gap:12px;padding:14px 15px;border-radius:18px;background:transparent;color:#44627d;font-weight:900;text-align:left}
+    .nav-btn.active,.nav-btn:hover{background:#eef7ff;color:var(--blue-2)}
+    .timer-box{background:linear-gradient(135deg,#fff7e8,#fff);border:1px solid #ffe4b8;border-radius:24px;padding:16px;margin-top:auto}
+    .timer-label{font-size:12px;font-weight:900;color:#946200;text-transform:uppercase;letter-spacing:.05em}
+    .timer-value{font-size:28px;font-weight:900;letter-spacing:-.03em;margin-top:7px;color:#6b3c00}
+    .timer-caption{font-size:12px;line-height:1.5;color:#8a6a36;margin-top:6px;font-weight:700}
+    .progress-mini{margin:16px 0 0}
+    .bar{height:11px;border-radius:999px;background:#eaf1fb;overflow:hidden}
+    .bar span{display:block;height:100%;width:0%;background:linear-gradient(90deg,var(--blue),var(--cyan));border-radius:999px;transition:.35s}
+    .mini-copy{font-size:12px;color:var(--muted);line-height:1.55;margin:14px 2px 0;font-weight:700}
+
+    .main-panel{min-width:0;display:flex;flex-direction:column;gap:18px}
+    .topbar{
+      background:rgba(255,255,255,.82);
+      border:1px solid rgba(255,255,255,.9);
+      border-radius:32px;
+      box-shadow:var(--soft-shadow);
+      padding:24px 28px;
+      display:flex;align-items:center;justify-content:space-between;gap:16px;
+      backdrop-filter:blur(16px);
+    }
+    .topbar h2{margin:0;font-size:clamp(22px,2.4vw,36px);line-height:1.18;letter-spacing:-.04em}
+    .topbar p{margin:8px 0 0;color:var(--muted);line-height:1.6;font-weight:600}
+    .top-actions{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .content-card{
+      background:rgba(255,255,255,.86);
+      border:1px solid rgba(255,255,255,.92);
+      border-radius:32px;
+      box-shadow:var(--shadow);
+      padding:24px;
+      backdrop-filter:blur(16px);
+      min-height:calc(100vh - 168px);
+    }
+
+    .section-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+    .section-card{
+      position:relative;overflow:hidden;border-radius:28px;background:#fff;border:1px solid var(--line);box-shadow:0 16px 34px rgba(23,50,77,.09);transition:.22s;
+      min-height:330px;display:flex;flex-direction:column;
+    }
+    .section-card:hover{transform:translateY(-3px);box-shadow:0 24px 42px rgba(23,50,77,.13)}
+    .section-card.locked{filter:saturate(.55);opacity:.72}
+    .section-img{height:150px;background:#eaf5ff;position:relative;overflow:hidden}
+    .section-img img{width:100%;height:100%;object-fit:cover;display:block;transition:.3s}
+    .section-card:hover .section-img img{transform:scale(1.04)}
+    .section-badge{position:absolute;top:13px;left:13px;background:rgba(255,255,255,.92);border:1px solid rgba(255,255,255,.95);padding:8px 11px;border-radius:999px;font-size:12px;font-weight:900;box-shadow:0 10px 20px rgba(23,50,77,.10)}
+    .section-lock{position:absolute;top:13px;right:13px;background:rgba(23,50,77,.78);color:#fff;padding:8px 10px;border-radius:999px;font-size:12px;font-weight:900}
+    .section-body{padding:18px;display:flex;flex-direction:column;gap:10px;flex:1}
+    .section-body h3{margin:0;font-size:21px;letter-spacing:-.025em}
+    .section-body p{margin:0;color:var(--muted);line-height:1.55;font-size:14px;font-weight:600}
+    .section-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:auto;padding-top:10px}
+    .pill{display:inline-flex;align-items:center;gap:7px;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:900;background:#f4f8ff;color:#2e5a8c}
+    .pill.done{background:#eafff7;color:#087443}.pill.lock{background:#fff1f1;color:#b42318}.pill.current{background:#fff7e8;color:#946200}
+
+    .detail-layout{display:grid;grid-template-columns:minmax(0,.86fr) minmax(360px,1.14fr);gap:20px;align-items:start}
+    .detail-hero{border-radius:30px;overflow:hidden;background:#fff;border:1px solid var(--line);box-shadow:var(--soft-shadow)}
+    .detail-hero img{width:100%;height:250px;object-fit:cover;display:block;background:#eef7ff}
+    .detail-copy{padding:20px}
+    .detail-copy h3{font-size:28px;margin:0 0 8px;letter-spacing:-.04em}
+    .detail-copy p{line-height:1.7;color:var(--muted);font-weight:600;margin:0}
+    .steps{display:grid;gap:12px}
+    .step-card{background:#fff;border:1px solid var(--line);border-radius:24px;padding:16px;display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;box-shadow:0 12px 26px rgba(23,50,77,.06)}
+    .step-card.locked{opacity:.55;background:#f8fafc}
+    .step-icon{width:44px;height:44px;border-radius:16px;display:grid;place-items:center;background:#eef7ff;font-weight:900;color:var(--blue-2)}
+    .step-card.done .step-icon{background:#eafff7;color:#087443}.step-card.locked .step-icon{background:#eef1f5;color:#7b8794}
+    .step-title{font-weight:900;margin:0 0 4px}.step-desc{margin:0;color:var(--muted);font-size:13px;line-height:1.5;font-weight:600}
+    .step-actions{display:flex;gap:8px;flex-wrap:wrap;justify-content:flex-end}
+    .bonus-box{background:linear-gradient(135deg,#fff7e8,#fff);border:1px solid #ffe2ad;border-radius:26px;padding:18px;margin-top:14px;line-height:1.65;color:#654200;font-weight:650}
+    .bonus-box h4{margin:0 0 8px;color:#6b3c00;font-size:18px}
+
+    .tracker-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .tracker-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:var(--soft-shadow)}
+    .tracker-card h3{margin:0 0 12px}.tracker-row{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px dashed #e9f0fa;font-weight:800;font-size:13px}.tracker-row:first-of-type{border-top:0}.dot{width:10px;height:10px;border-radius:50%;background:#cbd5e1}.dot.done{background:var(--success)}
+
+    .help-card{background:#fff;border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:var(--soft-shadow);line-height:1.7;color:var(--muted);font-weight:650}.help-card h3{margin:0 0 8px;color:var(--ink);font-size:26px}.help-list{display:grid;gap:12px;margin-top:18px}.help-item{background:#f8fbff;border:1px solid #e7f0fb;border-radius:20px;padding:16px;color:#415b74}
+
+    .video-panel{display:grid;gap:16px}
+    .video-shell{position:relative;background:#0b1728;border-radius:28px;overflow:hidden;box-shadow:0 22px 50px rgba(8,22,43,.28);aspect-ratio:16/9;min-height:330px}
+    #player{position:absolute;inset:0;width:100%;height:100%}
+    .yt-mask{position:absolute;right:12px;bottom:10px;width:88px;height:50px;border-radius:12px;background:rgba(255,255,255,.92);display:grid;place-items:center;z-index:3;box-shadow:0 8px 20px rgba(0,0,0,.16);pointer-events:auto}
+    .yt-mask img{max-width:76px;max-height:44px;object-fit:contain;border-radius:10px}
+    .video-info{background:#fff;border:1px solid var(--line);border-radius:24px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:14px;box-shadow:var(--soft-shadow)}
+    .video-info h3{margin:0 0 5px}.video-info p{margin:0;color:var(--muted);font-weight:600;line-height:1.5}
+
+    .modal-backdrop{position:fixed;inset:0;background:rgba(5,16,31,.54);z-index:1000;display:grid;place-items:center;padding:20px;backdrop-filter:blur(6px)}
+    .modal{width:min(560px,100%);background:#fff;border-radius:30px;box-shadow:0 30px 80px rgba(3,10,24,.34);padding:26px;border:1px solid rgba(255,255,255,.9)}
+    .modal h3{margin:0 0 8px;font-size:28px;letter-spacing:-.035em}.modal p{margin:0;color:var(--muted);line-height:1.65;font-weight:600}.quiz-options{display:grid;gap:10px;margin:18px 0}.quiz-option{width:100%;text-align:left;border:1px solid var(--line);border-radius:17px;background:#f8fbff;padding:13px 15px;font-weight:800;color:#294763}.quiz-option:hover,.quiz-option.selected{border-color:rgba(31,122,224,.55);background:#eef7ff;color:var(--blue-2)}.modal-actions{display:flex;justify-content:flex-end;gap:10px;flex-wrap:wrap;margin-top:18px}.result-hero{background:linear-gradient(135deg,#eef7ff,#fff7e8);border:1px solid #fff;border-radius:28px;padding:24px;box-shadow:var(--soft-shadow)}.result-hero h2{font-size:34px;margin:0 0 12px;letter-spacing:-.04em}.result-hero p{color:#47637c;line-height:1.75;font-weight:650;margin:0;white-space:pre-line}
+
+    .loader{width:18px;height:18px;border-radius:50%;border:3px solid rgba(255,255,255,.45);border-top-color:#fff;animation:spin .85s linear infinite}@keyframes spin{to{transform:rotate(360deg)}}
+    .disabled{pointer-events:none;opacity:.55}
+
+
+    .progress-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:18px}
+    .summary-card{background:#fff;border:1px solid var(--line);border-radius:26px;padding:18px;box-shadow:var(--soft-shadow)}
+    .summary-card .label{font-size:12px;font-weight:900;color:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+    .summary-card .value{font-size:34px;font-weight:900;letter-spacing:-.04em;margin-top:8px;color:var(--ink)}
+    .summary-card .desc{font-size:13px;line-height:1.55;color:var(--muted);font-weight:700;margin-top:4px}
+    .quiz-kicker{display:inline-flex;align-items:center;gap:8px;background:#eef7ff;color:var(--blue-2);border:1px solid #dbeafe;border-radius:999px;padding:8px 12px;font-size:12px;font-weight:900;margin-bottom:14px}
+    .quiz-card-title{font-size:30px!important;color:var(--ink)}
+    .quiz-image{width:100%;max-height:240px;object-fit:contain;background:#f8fbff;border:1px solid var(--line);border-radius:20px;margin:16px 0 4px;padding:10px}
+    .quiz-input{width:100%;height:54px;border:1px solid var(--line);border-radius:17px;padding:0 16px;background:#fff;color:var(--ink);outline:0;box-shadow:0 8px 18px rgba(23,50,77,.04);font-weight:800;margin-top:16px}
+    .quiz-input:focus{border-color:rgba(26,115,217,.55);box-shadow:0 0 0 4px rgba(26,115,217,.10)}
+    .quiz-option{display:flex;align-items:center;gap:10px;background:#ffffff!important;border:1px solid #dbe7f3!important;box-shadow:0 8px 16px rgba(16,42,67,.05)}
+    .quiz-option::before{content:attr(data-letter);width:30px;height:30px;border-radius:11px;display:grid;place-items:center;background:#eef7ff;color:var(--blue-2);font-weight:900;flex:0 0 auto}
+    .quiz-option.selected{border-color:rgba(26,115,217,.6)!important;background:#eef7ff!important}
+    .yt-mask{right:0!important;bottom:0!important;width:240px!important;height:76px!important;border-radius:24px 0 0 0!important;background:linear-gradient(135deg,#08111f,#102a43)!important;box-shadow:none!important;z-index:9!important}
+    .yt-mask img{max-width:130px!important;max-height:56px!important;background:white;border-radius:12px;padding:6px}
+    .yt-top-mask{position:absolute;right:0;top:0;width:230px;height:70px;background:linear-gradient(225deg,rgba(8,17,31,.95),rgba(8,17,31,.72),transparent);z-index:8;pointer-events:auto}
+    .hero-stat-grid{grid-template-columns:repeat(3,1fr)}
+    .login-form-wrap h2{color:var(--ink)}
+    @media(max-width:900px){.progress-summary{grid-template-columns:1fr}.yt-mask{width:170px!important;height:58px!important}.yt-top-mask{width:160px;height:58px}}
+
+
+    /* Tema v3 - clean academy, Ruangguru x Mathchamps */
+    .login-card,.sidebar,.topbar,.content-card{border-color:rgba(214,234,248,.95);background:rgba(255,255,255,.90)}
+    .login-hero::after{background:rgba(249,178,51,.34)}
+    .brand-pill{background:rgba(255,255,255,.20);border-color:rgba(255,255,255,.26);box-shadow:0 10px 24px rgba(0,0,0,.08)}
+    .academy-mark{background:linear-gradient(135deg,#fff4dd,#e8f9ff);border-color:#d6eaf8;color:#005c9d}
+    .credential-note{background:linear-gradient(135deg,#f2fbff,#fff8ea);border-color:#cceeff;color:#244b64}
+    .primary-btn{background:linear-gradient(135deg,#005c9d,#0594d9 72%,#45c8e8);box-shadow:0 14px 28px rgba(5,148,217,.22)}
+    .secondary-btn{background:#eefaff;color:#005c9d;border:1px solid #d1f0fb}.secondary-btn:hover{background:#dff6ff}
+    .nav-btn.active,.nav-btn:hover{background:#eaf8ff;color:#005c9d}
+    .profile-card{background:linear-gradient(145deg,#eaf8ff,#fff8ea)}
+    .timer-box{background:linear-gradient(135deg,#fff6df,#ffffff);border-color:#ffdf9a}
+    .bar span{background:linear-gradient(90deg,#005c9d,#0594d9,#f9b233)}
+    .section-card{border-color:#d6eaf8}.section-card::before{background:linear-gradient(90deg,#0594d9,#45c8e8,#f9b233)}
+    .section-badge{background:rgba(0,92,157,.92)}
+    .pill.current{background:#fff4dd;color:#9a5b00}.pill.done{background:#e9fff8;color:#087443}.pill.lock{background:#fff0f0;color:#b42318}
+    .step-icon{background:linear-gradient(135deg,#eaf8ff,#fff4dd);color:#005c9d}
+    .quiz-kicker{background:#eaf8ff;color:#005c9d;border-color:#cceeff}
+    .quiz-option::before{background:#eaf8ff;color:#005c9d}
+    .quiz-option.selected{border-color:rgba(5,148,217,.65)!important;background:#eaf8ff!important}
+    .result-hero{background:linear-gradient(135deg,#eefaff,#fff6df)}
+    .yt-mask{right:0!important;bottom:0!important;width:360px!important;height:108px!important;border-radius:30px 0 0 0!important;background:linear-gradient(135deg,#07162b,#0d3153)!important;box-shadow:none!important;z-index:12!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:12px!important;padding:16px!important}
+    .yt-mask img{width:auto!important;height:58px!important;max-width:150px!important;max-height:58px!important;background:white!important;border-radius:14px!important;padding:7px!important;object-fit:contain!important}
+    .yt-top-mask{position:absolute;right:0;top:0;width:430px;height:96px;background:linear-gradient(225deg,rgba(7,22,43,1),rgba(7,22,43,.94) 56%,rgba(7,22,43,0));z-index:11;pointer-events:auto}
+    @media(max-width:900px){.yt-mask{width:260px!important;height:82px!important}.yt-mask img{height:42px!important;max-width:110px!important}.yt-top-mask{width:280px;height:76px}}
+
+
+
+    /* Revisi v4 - tema lebih menyatu, progress lebih jelas, dan logo video tanpa blok hitam */
+    :root{
+      --blue:#006FC9;
+      --blue-2:#004B8D;
+      --cyan:#42C9E8;
+      --orange:#F6B13B;
+      --cream:#FFF6E3;
+      --mint:#EAFBF7;
+      --ink:#102A43;
+      --muted:#5C7288;
+      --line:#CDE8F7;
+      --shadow:0 24px 64px rgba(0,75,141,.13);
+      --soft-shadow:0 14px 34px rgba(0,75,141,.08);
+    }
+    body{
+      background:
+        radial-gradient(circle at 7% 5%, rgba(66,201,232,.18), transparent 28%),
+        radial-gradient(circle at 94% 8%, rgba(246,177,59,.18), transparent 26%),
+        linear-gradient(135deg,#eefaff 0%,#ffffff 42%,#fff8e9 100%)!important;
+    }
+    .login-card,.sidebar,.topbar,.content-card{
+      background:rgba(255,255,255,.94)!important;
+      border-color:rgba(205,232,247,.98)!important;
+      box-shadow:0 24px 58px rgba(0,75,141,.11)!important;
+    }
+    .login-hero{
+      background:
+        linear-gradient(135deg,rgba(0,75,141,.97),rgba(0,111,201,.93) 48%,rgba(66,201,232,.82) 78%,rgba(246,177,59,.78)),
+        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp') center/cover!important;
+    }
+    .profile-card,.credential-note,.academy-mark{
+      background:linear-gradient(135deg,#eefaff 0%,#ffffff 55%,#fff6e3 100%)!important;
+      border-color:#cde8f7!important;
+    }
+    .nav-btn.active,.nav-btn:hover{background:linear-gradient(135deg,#eefaff,#fff6e3)!important;color:#004b8d!important}
+    .progress-mini{
+      margin-top:auto!important;
+      background:linear-gradient(135deg,#eefaff 0%,#ffffff 54%,#fff6e3 100%);
+      border:1px solid #cde8f7;
+      border-radius:24px;
+      padding:15px;
+      box-shadow:0 12px 28px rgba(0,75,141,.07);
+    }
+    .progress-label-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px}
+    .progress-label-row span{font-size:12px;font-weight:900;color:#004b8d;text-transform:uppercase;letter-spacing:.05em}
+    .progress-label-row strong{font-size:28px;line-height:1;font-weight:900;color:#006fc9;letter-spacing:-.05em}
+    .progress-mini .bar{background:#dff3ff;height:12px}
+    .mini-copy{margin-top:10px!important;color:#4e6b84!important}
+    .timer-box{margin-top:12px!important;background:linear-gradient(135deg,#fff8ea,#ffffff)!important;border-color:#f7d389!important}
+    .timer-label{color:#9a6500!important}.timer-value{color:#5e3b00!important}
+
+    .section-grid{gap:20px!important}
+    .section-card{
+      background:linear-gradient(180deg,#ffffff 0%,#f7fcff 58%,#fffaf0 100%)!important;
+      border:1px solid #cde8f7!important;
+      box-shadow:0 18px 36px rgba(0,75,141,.10)!important;
+    }
+    .section-card::before{content:'';position:absolute;inset:0 0 auto;height:6px;background:linear-gradient(90deg,#006fc9,#42c9e8,#f6b13b);z-index:2}
+    .section-card:hover{box-shadow:0 26px 46px rgba(0,75,141,.15)!important}
+    .section-img{
+      height:152px!important;
+      margin:14px 14px 0;
+      border-radius:22px;
+      background:linear-gradient(135deg,#e7f7ff,#fff4dc)!important;
+      border:1px solid rgba(205,232,247,.95);
+      box-shadow:inset 0 0 0 1px rgba(255,255,255,.65);
+    }
+    .section-img img{filter:saturate(.95) contrast(1.02)}
+    .section-badge{
+      top:12px!important;left:12px!important;
+      background:rgba(0,75,141,.94)!important;
+      color:#fff!important;
+      border-color:rgba(255,255,255,.34)!important;
+    }
+    .section-body{padding:17px 18px 18px!important}
+    .section-body h3{color:#0f3154}.section-body p{color:#58718a}
+    .secondary-btn{background:#eefaff!important;color:#004b8d!important;border:1px solid #cde8f7!important}
+    .pill.current{background:#fff2cf!important;color:#8a5700!important}.pill.done{background:#e5fff4!important;color:#087443!important}
+    .detail-hero,.step-card,.tracker-card,.summary-card,.help-card,.video-info,.modal{border-color:#cde8f7!important}
+    .bonus-box{background:linear-gradient(135deg,#fff8ea,#ffffff)!important;border-color:#f7d389!important}
+
+    .quiz-card-title{color:#0f3154!important}
+    .quiz-kicker{background:linear-gradient(135deg,#eefaff,#fff6e3)!important;color:#004b8d!important;border-color:#cde8f7!important}
+    .quiz-review-btn{background:#fff8ea!important;border-color:#f7d389!important;color:#7a4c00!important}
+
+    .yt-top-mask{display:none!important}
+    .yt-mask{
+      right:10px!important;bottom:8px!important;
+      width:auto!important;height:44px!important;
+      min-width:154px!important;
+      border-radius:16px!important;
+      background:rgba(255,255,255,.97)!important;
+      border:1px solid rgba(205,232,247,.92)!important;
+      box-shadow:0 8px 20px rgba(0,30,60,.16)!important;
+      display:flex!important;align-items:center!important;justify-content:center!important;gap:6px!important;
+      padding:6px 8px!important;z-index:20!important;pointer-events:auto!important;
+    }
+    .yt-mask img{
+      width:auto!important;height:30px!important;max-width:68px!important;max-height:30px!important;
+      background:transparent!important;border-radius:8px!important;padding:0!important;object-fit:contain!important;
+    }
+    .yt-left-mask{
+      position:absolute!important;left:0!important;bottom:0!important;
+      width:170px!important;height:74px!important;
+      z-index:19!important;pointer-events:auto!important;
+      background:transparent!important;
+    }
+    @media(max-width:900px){
+      .progress-mini{margin-top:0!important}
+      .yt-mask{height:38px!important;min-width:132px!important;right:8px!important;bottom:7px!important}
+      .yt-mask img{height:25px!important;max-width:58px!important}
+    }
+
+        @media(max-width:1180px){.section-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-layout{grid-template-columns:1fr}.detail-hero img{height:310px}}
+    @media(max-width:900px){.login-card{grid-template-columns:1fr}.app-shell{grid-template-columns:1fr;padding:14px}.sidebar{position:relative;top:0;height:auto}.nav-list{grid-template-columns:repeat(3,1fr)}.timer-box{margin-top:0}.topbar{align-items:flex-start;flex-direction:column}.top-actions{justify-content:flex-start}.content-card{min-height:auto}.tracker-grid{grid-template-columns:1fr}}
+    @media(max-width:680px){.login-screen{width:calc(100% - 24px);padding:20px 0}.login-hero,.login-form-wrap{padding:28px}.hero-stat-grid{grid-template-columns:1fr}.section-grid{grid-template-columns:1fr}.nav-list{grid-template-columns:1fr}.step-card{grid-template-columns:auto 1fr}.step-actions{grid-column:1/-1;justify-content:stretch}.step-actions button,.step-actions a{width:100%}.video-shell{min-height:220px}.video-info{align-items:flex-start;flex-direction:column}.section-img{height:180px}.content-card,.topbar{padding:18px;border-radius:26px}}
+  </style>
+</head>
+<body>
+  <div class="noise"></div>
+
+  <main id="loginScreen" class="login-screen">
+    <section class="login-card">
+      <div class="login-hero">
+        <div class="brand-pill">Ruangguru Teacher Academy</div>
+        <h1>Sempoa Teacher Academy</h1>
+        <p>Ruang belajar eksklusif untuk kandidat pengajar sempoa Ruangguru. Selesaikan setiap section dengan fokus dan sungguh-sungguh sebagai bagian dari proses kesiapan mengajar di Mathcamps by Ruangguru.</p>
+        <div class="hero-stat-grid">
+          <div class="hero-stat"><strong>6</strong><span>Section Training</span></div>
+          <div class="hero-stat"><strong>72</strong><span>Jam Akses Terukur</span></div>
+          <div class="hero-stat"><strong>100%</strong><span>Progress Tersimpan</span></div>
+        </div>
+      </div>
+
+      <div class="login-form-wrap">
+        <div class="academy-mark">🧮</div>
+        <h2>Masuk ke Academy</h2>
+        <p class="hint">Akses hanya tersedia untuk peserta dengan email terdaftar dan password yang dikirimkan oleh tim Ruangguru.</p>
+        <div class="credential-note">Pastikan email yang kamu masukkan sama dengan email pendaftaran. Setelah berhasil masuk, ikuti alur belajar secara berurutan sampai seluruh section selesai.</div>
+        <form id="loginForm">
+          <div class="form-group">
+            <label for="emailInput">Email peserta</label>
+            <input id="emailInput" class="input" type="email" placeholder="nama@email.com" autocomplete="email" required>
+          </div>
+          <div class="form-group">
+            <label for="passwordInput">Password akses</label>
+            <input id="passwordInput" class="input" type="password" placeholder="Masukkan password" autocomplete="current-password" required>
+          </div>
+          <button id="loginButton" class="primary-btn wide" type="submit">Masuk ke Academy</button>
+          <p class="tiny-note">Gunakan password resmi yang dikirimkan oleh tim Ruangguru. Selesaikan training sesuai batas waktu akses yang berlaku.</p>
+          <div id="loginAlert" class="alert error hidden"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <main id="appShell" class="app-shell hidden">
+    <aside class="sidebar">
+      <div class="profile-card">
+        <div id="profileAvatar" class="profile-avatar" aria-label="Avatar peserta">🧑🏻‍🏫</div>
+        <div>
+          <b id="profileName">Peserta</b>
+          <small id="profileEmail">email</small>
+        </div>
+      </div>
+
+      <nav class="nav-list" aria-label="Menu utama">
+        <button class="nav-btn active" data-view="journey">📚 Learning Journey</button>
+        <button class="nav-btn" data-view="tracker">📈 Tracker Progress</button>
+        <button class="nav-btn" data-view="help">❓ Butuh Bantuan?</button>
+      </nav>
+
+      <div class="progress-mini">
+        <div class="progress-label-row">
+          <span>Progress Training</span>
+          <strong id="overallPercentLabel">0%</strong>
+        </div>
+        <div class="bar"><span id="overallBar"></span></div>
+        <p id="overallText" class="mini-copy">Progress kamu akan muncul di sini setelah mulai belajar.</p>
+      </div>
+
+      <div class="timer-box">
+        <div class="timer-label">Sisa waktu akses</div>
+        <div id="timerValue" class="timer-value">--:--:--</div>
+        <div id="timerCaption" class="timer-caption">Timer aktif setelah login.</div>
+      </div>
+    </aside>
+
+    <section class="main-panel">
+      <header class="topbar">
+        <div>
+          <h2 id="mainGreeting">Halo, Peserta! ✨</h2>
+          <p id="mainSubcopy">Ikuti setiap section dengan sungguh-sungguh. Progress ini menjadi bagian dari perjalananmu menuju pengajar sempoa Ruangguru.</p>
+        </div>
+        <div class="top-actions">
+          <button id="syncButton" class="ghost-btn" type="button">🔄 Sinkronkan</button>
+          <button id="logoutButton" class="danger-btn" type="button">Keluar</button>
+        </div>
+      </header>
+
+      <div id="contentCard" class="content-card"></div>
+    </section>
+  </main>
+
+  <div id="quizModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <div class="quiz-kicker">Checkpoint Academy</div>
+      <h3 class="quiz-card-title">Tantangan Kilat</h3>
+      <p id="quizQuestion">Video terjeda sejenak. Tunjukkan bahwa kamu memahami bagian penting dari materi barusan sebelum lanjut menonton.</p>
+      <div id="quizMedia"></div>
+      <div id="quizOptions" class="quiz-options"></div>
+      <input id="quizTextAnswer" class="quiz-input hidden" type="text" inputmode="numeric" placeholder="Tulis jawabanmu di sini">
+      <div id="quizFeedback" class="alert error hidden"></div>
+      <div class="modal-actions">
+        <button id="reviewVideoButton" class="ghost-btn quiz-review-btn hidden" type="button">↺ Cek Kembali Video</button>
+        <button id="submitQuizButton" class="primary-btn" type="button">Kirim Jawaban</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="messageModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
+    <div class="modal">
+      <h3 id="messageTitle">Info</h3>
+      <p id="messageBody">Pesan</p>
+      <div class="modal-actions">
+        <button id="messageClose" class="primary-btn" type="button">Mengerti</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const APP_CONFIG = {
+      // GANTI ini setelah Apps Script kamu selesai di-deploy.
+      scriptUrl: 'https://script.google.com/macros/s/AKfycbxpnTpgRr5IS_-4RN7UDFaSE5vp5D0EtpNX8lkdWsujuGly1SiWFQqXQjeASks8Cgw7/exec',
+      storageKey: 'sempoaTeacherAcademySession.v2',
+      specialAvatar: 'https://roboguru-forum-cdn.ruangguru.com//image/57c49f7f-2512-4cfa-98e3-8734d96ad44b.jpeg',
+      youtubeMask: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrg8sPpqf9SOQ1haFQ_SRvYRcnRFa3MzRglTOa-DfbHg&s=10',
+      mathChampsLogo: 'https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp'
+    };
+
+    const MATERIALS = [
+      {
+        id: 's1', moduleNo: 1, title: 'Pengenalan Sempoa', emoji: '🧮',
+        short: 'Mulai dari fondasi: bagian sempoa, nilai manik, dan refleks rumus langsung.',
+        detail: 'Section pembuka ini membangun fondasi penting untuk calon pengajar sempoa. Kamu akan memahami bagian sempoa, cara membaca nilai manik secara tepat, serta melatih koordinasi Ibu Jari dan Telunjuk agar siap menjelaskan hitungan dasar dengan runtut kepada siswa.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/626cd041-49b4-4cd1-8357-46a2c198316f.png',
+        preTest: 'https://forms.gle/Y91Y6xHEM8V11ULD6', postTest: 'https://forms.gle/RwjH3U7H4C2hFuM67',
+        moduleUrl: 'https://drive.google.com/file/d/15nfUX71y3IkYtZu4VzYbLWMxehRFGJ9h/view?usp=drive_link', moduleLabel: 'Modul Pengenalan Sempoa',
+        videos: [
+          { title: 'Pengenalan Sempoa', youtubeId: 'ZumRbx0uxzw', quiz: { kind:'choice', triggerAt:374, question: 'Jari apa yang digunakan untuk membuat manik 6?', options: ['Ibu Jari', 'Telunjuk', 'Ibu Jari dan Telunjuk'], answer: 2 } },
+          { title: 'Nilai Sempoa', youtubeId: 'XKZhGlAkqI0', quiz: { kind:'choice', triggerAt:279, question: 'Jika manik atas dan 2 manik bawah dicubit ke tengah atau mendekat ke garis pemisah, berapa nilai manik tersebut?', options: ['2', '7', '3'], answer: 1 } },
+          { title: 'Rumus Langsung', youtubeId: 'HL48XMlyvjw', quiz: { kind:'choice', triggerAt:505, question: 'Berapa jawaban dari soal nomor 6?', options: ['1', '2', '3'], answer: 1 } }
+        ]
+      },
+      {
+        id: 's2', moduleNo: 2, title: 'Kawan Kecil', emoji: '🖐️',
+        short: 'Kuasai strategi tambah-kurang berbasis kombinasi angka 5.',
+        detail: 'Di section ini, kamu akan mendalami strategi Kawan Kecil agar bisa membantu siswa menyelesaikan tambah-kurang ketika manik bawah tidak cukup. Fokusnya bukan hanya bisa menghitung, tetapi juga mampu menjelaskan langkahnya dengan sederhana dan percaya diri.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/7ad25920-a0d5-49a0-9081-de743f25bf06.png',
+        preTest: 'https://forms.gle/x8uJXPCbuxEy9ar38', postTest: 'https://forms.gle/2PGzNcGQEKiS4L9D6',
+        moduleUrl: 'https://drive.google.com/file/d/1hYx0waLvEXjYINSMkAxdPiPODRZDFNG6/view?usp=drive_link', moduleLabel: 'Modul Kawan Kecil',
+        videos: [
+          { title: 'Kawan Kecil 1', youtubeId: 'aMD7jUXH2lI', quiz: { kind:'choice', triggerAt:162, question: 'Berapa kawan kecil dari 6?', options: ['1', '3', 'Tidak ada'], answer: 2 } },
+          { title: 'Kawan Kecil 2', youtubeId: 'wOoubFdBlf4', quiz: { kind:'choice', triggerAt:318, question: 'Bagaimana cara menghitung 8 - 4 di sempoa?', options: ['Menaikkan manik 1 dan manik 5 ke atas', 'Menurunkan manik 4', 'Membuka atau mengeluarkan semua manik'], answer: 2 } }
+        ]
+      },
+      {
+        id: 's3', moduleNo: 3, title: 'Kawan Besar', emoji: '🔟',
+        short: 'Naik level ke kombinasi angka 10 dan hitungan yang lebih menantang.',
+        detail: 'Section ini membantu kamu mengenalkan konsep Kawan Besar berbasis angka 10. Kamu akan berlatih menjaga nilai tempat, memilih strategi hitung yang tepat, dan menyiapkan cara penyampaian yang mudah diikuti siswa.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/26f69446-d404-4388-97a9-b4d7b46b2beb.png',
+        preTest: 'https://forms.gle/U1pJicFEM2ZXQpyK6', postTest: 'https://forms.gle/HGfDsDgZthPK94gq6',
+        moduleUrl: 'https://drive.google.com/file/d/1JJU5IlfnnWitQ7E0vzff206yRJbfImnB/view?usp=drive_link', moduleLabel: 'Modul Kawan Besar',
+        videos: [
+          { title: 'Kawan Besar 1', youtubeId: 'VAxKB166otw', quiz: { kind:'input', triggerAt:439, question:'Hasil dari 6 + 7 adalah...', image:'https://cdn-web.ruangguru.com/file-uploader/068f785f-7f22-42c7-abdf-3160c4c62ad6.png', answer:'13' } },
+          { title: 'Kawan Besar 2', youtubeId: 'Z_Ohxd8wkLE', quiz: { kind:'input', triggerAt:210, question:'Hasil dari 14 - 8 adalah...', image:'https://cdn-web.ruangguru.com/file-uploader/2a69c51f-7859-4a9f-8597-e64ec510637e.png', answer:'6' } }
+        ]
+      },
+      {
+        id: 's4', moduleNo: 4, title: 'Rumus Gabungan', emoji: '🔄',
+        short: 'Padukan strategi kawan 5 dan kawan 10 untuk soal yang lebih kompleks.',
+        detail: 'Di section ini, kamu akan menggabungkan pemahaman Kawan Kecil dan Kawan Besar. Latihan ini penting agar kamu mampu menyelesaikan soal bertahap dan menjelaskan alasan di balik setiap gerakan manik secara akurat.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/5ac76915-a760-4761-b790-31c2f281a025.png',
+        preTest: 'https://forms.gle/Spyurn6cKWdbJonFA', postTest: 'https://forms.gle/P6XtgYouztGoqJPn8',
+        moduleUrl: 'https://drive.google.com/file/d/1PfcuU8ZlmBQ91x6GZOxxECpa6yrAbEXe/view?usp=drive_link', moduleLabel: 'Modul Rumus Gabungan',
+        videos: [
+          { title: 'Rumus Gabungan 1', youtubeId: 'M2Ld8XMy0iM', quiz: { kind:'input', triggerAt:502, question:'Kerjakan soal berikut dengan menggunakan sempoa.\n719 - 524 + 107 = ...', image:'https://cdn-web.ruangguru.com/file-uploader/29619a5f-9fc2-43c3-835e-dc83939da4fd.png', answer:'302' } },
+          { title: 'Rumus Gabungan 2', youtubeId: 'Tjjr9Ye1DAA', quiz: { kind:'choice', triggerAt:300, question: 'Saat menyelesaikan rumus gabungan, hal apa yang paling penting dijaga?', options: ['Langkah hitung runtut dan posisi manik tepat', 'Menghafal jawaban akhir saja', 'Melewati latihan dasar'], answer: 0 } }
+        ]
+      },
+      {
+        id: 's5', moduleNo: 5, title: 'Multi-Digit Dasar', emoji: '🔢',
+        short: 'Latih ketelitian menghitung 2 sampai 3 digit secara runtut.',
+        detail: 'Section ini melatih kamu membimbing siswa pada hitungan multi-digit dasar. Fokus utamanya adalah ketelitian nilai tempat, urutan gerakan, dan kemampuan menjaga ritme penjelasan agar siswa tidak bingung saat angka mulai lebih besar.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/210a64d8-c480-4a1b-8db6-7ffd105d0950.png',
+        preTest: 'https://forms.gle/H1NhwdSygX36PWoT7', postTest: 'https://forms.gle/c3JBb1wcW9dH1MZV7',
+        moduleUrl: 'https://drive.google.com/file/d/18YEeQyIC_UlQZmq5G0NV_5dt8ENAkMUV/view?usp=drive_link', moduleLabel: 'Modul Multi-Digit Dasar',
+        videos: [
+          { title: 'Multi-Digit Dasar', youtubeId: 'qIdMsbvxjo0', quiz: { kind:'input', triggerAt:262, question:'Hitunglah dengan menggunakan sempoa.\n9275 - 3468 + 5179 = ...', image:'https://cdn-web.ruangguru.com/file-uploader/96d40528-bc9a-454d-9ca5-500bced9bfd4.png', answer:'10986' } }
+        ]
+      },
+      {
+        id: 's6', moduleNo: 6, title: 'Multi-Digit Lanjutan', emoji: '🏆',
+        short: 'Tuntaskan latihan angka besar dengan fokus, konsisten, dan akurat.',
+        detail: 'Section terakhir dirancang untuk menguatkan akurasi pada angka 4 sampai 6 digit. Kamu akan berlatih menyelesaikan soal besar dengan konsentrasi tinggi sekaligus menyiapkan diri untuk membimbing siswa secara profesional.',
+        image: 'https://roboguru-forum-cdn.ruangguru.com//image/849a6d92-8e28-4921-952f-3a695f7401dd.png',
+        preTest: 'https://forms.gle/YY9oNrA8pj7tCuzn7', postTest: 'https://forms.gle/PH1t11C3BqMCM5gi8',
+        moduleUrl: 'https://drive.google.com/file/d/1tIGlcUezLFVb6jjT4fMMOLeFpt4OWuO_/view?usp=drive_link', moduleLabel: 'Modul Multi-Digit Lanjutan',
+        videos: [
+          { title: 'Multi-Digit Lanjutan', youtubeId: '3RW4bZXYxTM', quiz: { kind:'input', triggerAt:643, question:'Hitunglah dengan menggunakan sempoa.\n95278 + 38645 + 47596 = ...', image:'https://cdn-web.ruangguru.com/file-uploader/dfe6e3fb-d987-4f81-905c-76f48d042ae9.png', answer:'181519' } }
+        ]
+      }
+    ];
+
+    let state = {
+      session: null,
+      progress: {},
+      activeView: 'journey',
+      activeSectionId: null,
+      activeVideo: null,
+      selectedQuizOption: null,
+      quizAlreadyShown: false,
+      quizPassed: false,
+      player: null,
+      timerHandle: null,
+      videoCheckHandle: null
+    };
+
+    const $ = (selector) => document.querySelector(selector);
+    const $$ = (selector) => Array.from(document.querySelectorAll(selector));
+
+    function requiredItems(){
+      return MATERIALS.flatMap(section => [
+        `${section.id}-pre`,
+        ...section.videos.map((_, i) => `${section.id}-v${i + 1}`),
+        `${section.id}-post`
+      ]);
+    }
+
+    function isDone(itemId){ return Boolean(state.progress && state.progress[itemId]); }
+    function itemIndex(itemId){ return requiredItems().indexOf(itemId); }
+    function isRequiredUnlocked(itemId){
+      const idx = itemIndex(itemId);
+      if(idx < 0) return false;
+      if(idx === 0) return true;
+      return isDone(requiredItems()[idx - 1]);
+    }
+    function isSectionUnlocked(section){ return isRequiredUnlocked(`${section.id}-pre`); }
+    function sectionRequiredIds(section){ return [`${section.id}-pre`, ...section.videos.map((_,i)=>`${section.id}-v${i+1}`), `${section.id}-post`]; }
+    function sectionPercent(section){
+      const ids = sectionRequiredIds(section);
+      return Math.round(ids.filter(isDone).length / ids.length * 100);
+    }
+    function overallPercent(){
+      const ids = requiredItems();
+      return Math.round(ids.filter(isDone).length / ids.length * 100);
+    }
+    function allFinished(){ return requiredItems().every(isDone); }
+
+    function apiCall(action, payload = {}){
+      if(!APP_CONFIG.scriptUrl || APP_CONFIG.scriptUrl.includes('PASTE_APPS_SCRIPT')){
+        return Promise.reject(new Error('Apps Script URL belum dipasang di index.html. Ganti APP_CONFIG.scriptUrl dengan URL /exec dari Apps Script.'));
+      }
+      return new Promise((resolve, reject) => {
+        const callbackName = `sempoaCb_${Date.now()}_${Math.random().toString(36).slice(2)}`;
+        const params = new URLSearchParams({ action, callback: callbackName });
+        Object.entries(payload).forEach(([key, value]) => {
+          if(value !== undefined && value !== null) params.set(key, typeof value === 'object' ? JSON.stringify(value) : String(value));
+        });
+        const script = document.createElement('script');
+        const cleanup = () => {
+          delete window[callbackName];
+          script.remove();
+          clearTimeout(timeout);
+        };
+        const timeout = setTimeout(() => {
+          cleanup();
+          reject(new Error('Gagal menghubungi Apps Script. Cek URL deployment dan akses web app.'));
+        }, 18000);
+        window[callbackName] = (response) => {
+          cleanup();
+          if(response && response.ok) resolve(response);
+          else reject(new Error(response?.message || 'Request gagal.'));
+        };
+        script.onerror = () => {
+          cleanup();
+          reject(new Error('Gagal memuat respons Apps Script. Pastikan deployment aktif dan akses diset ke Anyone.'));
+        };
+        script.src = `${APP_CONFIG.scriptUrl}?${params.toString()}`;
+        document.body.appendChild(script);
+      });
+    }
+
+    function saveSession(session){
+      state.session = session;
+      state.progress = session.progress || {};
+      localStorage.setItem(APP_CONFIG.storageKey, JSON.stringify(session));
+    }
+    function clearSession(){
+      localStorage.removeItem(APP_CONFIG.storageKey);
+      state.session = null;
+      state.progress = {};
+      stopVideo();
+      clearInterval(state.timerHandle);
+    }
+
+    function showLogin(message){
+      $('#loginScreen').classList.remove('hidden');
+      $('#appShell').classList.add('hidden');
+      if(message) showLoginAlert(message);
+    }
+    function showApp(){
+      $('#loginScreen').classList.add('hidden');
+      $('#appShell').classList.remove('hidden');
+      renderShell();
+      startTimer();
+    }
+    function sanitizeVisibleMessage(message){
+      const text = String(message || '');
+      if(/akses tambahan|extension|24 jam|72 jam sudah habis|password resmi|masa akses/i.test(text)){
+        return 'Masa akses belum aktif atau sudah berakhir. Silakan gunakan password resmi yang dikirimkan tim Ruangguru atau hubungi admin.';
+      }
+      return text;
+    }
+
+    function showLoginAlert(message, type = 'error'){
+      const el = $('#loginAlert');
+      el.textContent = sanitizeVisibleMessage(message);
+      el.className = `alert ${type}`;
+      el.classList.remove('hidden');
+    }
+    function setButtonLoading(button, isLoading, label){
+      if(!button.dataset.originalText) button.dataset.originalText = button.innerHTML;
+      button.disabled = isLoading;
+      button.innerHTML = isLoading ? '<span class="loader"></span> Memproses...' : (label || button.dataset.originalText);
+    }
+
+    $('#loginForm').addEventListener('submit', async (event) => {
+      event.preventDefault();
+      $('#loginAlert').classList.add('hidden');
+      const btn = $('#loginButton');
+      setButtonLoading(btn, true);
+      try{
+        const email = $('#emailInput').value.trim().toLowerCase();
+        const password = $('#passwordInput').value;
+        const response = await apiCall('login', { email, password });
+        saveSession(response.session);
+        showApp();
+        if(response.session.isExtensionActivated){
+          showMessage('Akses Aktif Kembali ✨', 'Akses kamu sudah aktif kembali. Yuk, lanjutkan learning journey dari progress terakhir.');
+        }
+      }catch(error){
+        showLoginAlert(error.message);
+      }finally{
+        setButtonLoading(btn, false);
+      }
+    });
+
+    $('#logoutButton').addEventListener('click', () => {
+      clearSession();
+      showLogin();
+    });
+
+    $('#syncButton').addEventListener('click', async () => {
+      if(!state.session) return;
+      const btn = $('#syncButton');
+      setButtonLoading(btn, true);
+      try{
+        const response = await apiCall('getState', { token: state.session.token });
+        saveSession({ ...state.session, ...response.session });
+        renderShell();
+        showMessage('Progress Tersinkron ✨', 'Data terbaru dari Google Sheet sudah berhasil dimuat.');
+      }catch(error){ showMessage('Sinkronisasi Gagal', error.message); }
+      finally{ setButtonLoading(btn, false, '🔄 Sinkronkan'); }
+    });
+
+    $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => {
+      state.activeView = btn.dataset.view;
+      state.activeSectionId = null;
+      stopVideo();
+      renderShell();
+    }));
+
+
+    function renderParticipantAvatar(session){
+      const avatar = $('#profileAvatar');
+      if(!avatar) return;
+      if(session.isSpecial){
+        avatar.innerHTML = `<img src="${APP_CONFIG.specialAvatar}" alt="Avatar akun khusus">`;
+        return;
+      }
+      avatar.textContent = guessTeacherAvatar(session.name || session.email || '');
+    }
+
+    function guessTeacherAvatar(name){
+      const text = String(name || '').toLowerCase();
+      const femaleSignals = ['putri','putri','annisa','nisa','nurul','siti','sitti','dewi','citra','rahma','rani','dian','fenti','clarinta','viona','ayu','salma','zahra','kirana','elisa','alesha','nauli','davania','keyla','jihan','salsabila','bilqis','raisya','hatherina','katherine','catherine','intan','fitri','amel','aulia','nadia','nabila'];
+      return femaleSignals.some(x => text.includes(x)) ? '👩🏻‍🏫' : '🧑🏻‍🏫';
+    }
+
+    function renderShell(){
+      const session = state.session;
+      if(!session) return;
+      $('#profileName').textContent = session.name || 'Peserta';
+      $('#profileEmail').textContent = session.email || '';
+      renderParticipantAvatar(session);
+      $('#mainGreeting').textContent = `Halo, ${session.name || 'Peserta'}!`;
+      $('#mainSubcopy').textContent = 'Selesaikan setiap section dengan fokus. Progress ini menjadi bagian dari perjalananmu menuju pengajar sempoa Ruangguru.';
+      const percent = overallPercent();
+      $('#overallBar').style.width = `${percent}%`;
+      const progressLabel = $('#overallPercentLabel');
+      if(progressLabel) progressLabel.textContent = `${percent}%`;
+      $('#overallText').textContent = `Kamu sudah menyelesaikan ${percent}% dari alur utama. Tetap fokus sampai semua section selesai.`;
+      $$('.nav-btn').forEach(btn => btn.classList.toggle('active', btn.dataset.view === state.activeView));
+
+      if(state.activeView === 'tracker') renderTracker();
+      else if(state.activeView === 'help') renderHelp();
+      else if(state.activeSectionId) renderSectionDetail(MATERIALS.find(s => s.id === state.activeSectionId));
+      else if(allFinished()) renderCompletion();
+      else renderJourney();
+    }
+
+    function renderJourney(){
+      const html = `<div class="section-grid">
+        ${MATERIALS.map(section => {
+          const unlocked = isSectionUnlocked(section);
+          const pct = sectionPercent(section);
+          const complete = pct === 100;
+          const labelClass = complete ? 'done' : (unlocked ? 'current' : 'lock');
+          const label = complete ? 'Selesai' : (unlocked ? `${pct}% progress` : 'Terkunci');
+          return `<article class="section-card ${unlocked ? '' : 'locked'}" data-section="${section.id}">
+            <div class="section-img">
+              <img src="${section.image}" alt="Section ${section.moduleNo} ${section.title}" loading="lazy">
+              ${unlocked ? '' : '<div class="section-lock">🔒 Terkunci</div>'}
+            </div>
+            <div class="section-body">
+              <h3>${section.emoji} ${section.title}</h3>
+              <p>${section.short}</p>
+              <div class="bar"><span style="width:${pct}%"></span></div>
+              <div class="section-footer">
+                <span class="pill ${labelClass}">${label}</span>
+                <button class="secondary-btn" type="button">${unlocked ? 'Buka Section' : 'Lihat Alur'}</button>
+              </div>
+            </div>
+          </article>`;
+        }).join('')}
+      </div>`;
+      $('#contentCard').innerHTML = html;
+      $$('.section-card').forEach(card => card.addEventListener('click', () => {
+        state.activeSectionId = card.dataset.section;
+        renderShell();
+      }));
+    }
+
+    function renderSectionDetail(section){
+      if(!section){ state.activeSectionId = null; return renderJourney(); }
+      const steps = buildSteps(section);
+      $('#contentCard').innerHTML = `<div class="detail-layout">
+        <div>
+          <button class="ghost-btn" id="backToJourney" type="button">← Kembali</button>
+          <div style="height:14px"></div>
+          <article class="detail-hero">
+            <img src="${section.image}" alt="Section ${section.moduleNo} ${section.title}">
+            <div class="detail-copy">
+              <span class="pill current">Section ${section.moduleNo}</span>
+              <h3>${section.emoji} ${section.title}</h3>
+              <p>${section.detail}</p>
+            </div>
+          </article>
+        </div>
+        <div class="steps">
+          ${steps.map(step => renderStep(step)).join('')}
+        </div>
+      </div>`;
+      $('#backToJourney').addEventListener('click', () => { state.activeSectionId = null; renderShell(); });
+      bindStepActions(section);
+    }
+
+    function buildSteps(section){
+      const steps = [];
+      steps.push({ id:`${section.id}-pre`, type:'pre', icon:'📝', title:'Pre-Test Section', desc:'Cek pemahaman awalmu sebelum masuk ke materi inti. Kerjakan dengan serius sebagai langkah pertama menuju kesiapan mengajar.', url: section.preTest });
+      section.videos.forEach((video, index) => steps.push({ id:`${section.id}-v${index+1}`, type:'video', icon:'▶️', title:`Video ${index+1}: ${video.title}`, desc:'Klik Mulai Belajar, tonton dengan fokus, lalu jawab Checkpoint Academy yang muncul di tengah video.', video, index }));
+      steps.push({ id:`${section.id}-post`, type:'post', icon:'🚀', title:'Evaluasi Kompetensi (Post-Test) 🚀', desc:'Selesaikan evaluasi kompetensi untuk membuka section berikutnya dan menunjukkan kesiapanmu melanjutkan training.', url: section.postTest });
+      steps.push({ id:`${section.id}-module`, type:'module', icon:'🎁', title:'Modul Latihan Bonus', desc: section.moduleUrl ? 'Bonus spesial: modul latihan terbuka setelah Post-Test selesai. Gunakan untuk memperkuat refleks dan variasi latihan mengajar.' : 'Link modul latihan belum tersedia.', url: section.moduleUrl, optional:true });
+      return steps;
+    }
+
+    function renderStep(step){
+      const unlocked = step.type === 'module' ? isDone(step.id.replace('-module','-post')) : isRequiredUnlocked(step.id);
+      const done = isDone(step.id);
+      let action = '';
+      if(step.type === 'pre' || step.type === 'post'){
+        action = `<a class="secondary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Google Form</a>
+          <button class="primary-btn mark-form" data-id="${step.id}" type="button" ${unlocked || done ? '' : 'disabled'}>${done ? 'Sudah Selesai' : 'Saya Sudah Mengerjakan'}</button>`;
+      }else if(step.type === 'video'){
+        action = `<button class="primary-btn start-video" data-id="${step.id}" type="button" ${unlocked || done ? '' : 'disabled'}>${done ? 'Tonton Ulang' : 'Mulai Belajar'}</button>`;
+      }else{
+        action = step.url
+          ? `<a class="primary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Modul Latihan</a>`
+          : `<button class="ghost-btn" type="button" disabled>Link Modul Belum Dipasang</button>`;
+      }
+      return `<article class="step-card ${done ? 'done' : ''} ${unlocked ? '' : 'locked'}">
+        <div class="step-icon">${done ? '✅' : step.icon}</div>
+        <div>
+          <p class="step-title">${step.title}</p>
+          <p class="step-desc">${step.desc}</p>
+        </div>
+        <div class="step-actions">${action}</div>
+      </article>`;
+    }
+
+    function bindStepActions(section){
+      $$('.mark-form').forEach(btn => btn.addEventListener('click', async () => {
+        if(isDone(btn.dataset.id)) return;
+        await markCompleted(btn.dataset.id, btn.dataset.id.endsWith('-pre') ? 'pretest' : 'posttest');
+        const title = btn.dataset.id.endsWith('-pre') ? 'Pre-Test Selesai! ✨' : 'Post-Test Selesai! 🚀';
+        const message = btn.dataset.id.endsWith('-pre') ? 'Terima kasih sudah mengerjakan. Yuk, langsung kita mulai materi pertama modul ini!' : 'Keren! Langkah kamu buat gabung dan mengajar di Mathcamps by Ruangguru makin dekat. Yuk, lanjut!';
+        showMessage(title, message);
+      }));
+      $$('.start-video').forEach(btn => btn.addEventListener('click', () => {
+        const stepId = btn.dataset.id;
+        const idx = Number(stepId.split('-v')[1]) - 1;
+        startVideo(section, idx, stepId);
+      }));
+    }
+
+    async function markCompleted(itemId, type = 'activity'){
+      if(isDone(itemId)) return;
+      try{
+        const response = await apiCall('saveProgress', { token: state.session.token, itemId, type });
+        state.progress = response.progress || { ...state.progress, [itemId]: new Date().toISOString() };
+        state.session.progress = state.progress;
+        localStorage.setItem(APP_CONFIG.storageKey, JSON.stringify(state.session));
+        renderShell();
+      }catch(error){
+        showMessage('Progress Belum Tersimpan', error.message);
+      }
+    }
+
+    function renderTracker(){
+      const ids = requiredItems();
+      const doneCount = ids.filter(isDone).length;
+      const totalCount = ids.length;
+      const percent = overallPercent();
+      const remaining = Math.max(0, totalCount - doneCount);
+      $('#contentCard').innerHTML = `<div class="progress-summary">
+        <article class="summary-card"><div class="label">Progress peserta</div><div class="value">${percent}%</div><div class="desc">Peserta sudah mengerjakan ${doneCount} dari ${totalCount} tahap utama.</div></article>
+        <article class="summary-card"><div class="label">Tahap selesai</div><div class="value">${doneCount}</div><div class="desc">Pre-test, video, dan post-test yang sudah ditandai selesai.</div></article>
+        <article class="summary-card"><div class="label">Sisa tahap</div><div class="value">${remaining}</div><div class="desc">Lanjutkan alur sesuai urutan agar semua section terbuka.</div></article>
+      </div>
+      <div class="tracker-grid">
+        ${MATERIALS.map(section => `<article class="tracker-card">
+          <h3>Section ${section.moduleNo}: ${section.title}</h3>
+          <div class="bar"><span style="width:${sectionPercent(section)}%"></span></div>
+          <p class="tiny-note">${sectionPercent(section)}% progress section selesai</p>
+          ${buildSteps(section).filter(s=>!s.optional).map(step => `<div class="tracker-row"><span class="dot ${isDone(step.id) ? 'done' : ''}"></span><span>${step.title}</span></div>`).join('')}
+        </article>`).join('')}
+      </div>`;
+    }
+
+    function renderHelp(){
+      $('#contentCard').innerHTML = `<article class="help-card">
+        <h3>Butuh Bantuan? ❓</h3>
+        <p>Kalau ada kendala saat mengakses materi, cek beberapa hal di bawah ini terlebih dahulu.</p>
+        <div class="help-list">
+          <div class="help-item"><b>1. Email tidak bisa login</b><br>Pastikan email yang dimasukkan sama persis dengan email di sheet Pendaftaran-Training.</div>
+          <div class="help-item"><b>2. Waktu akses habis</b><br>Jika masa akses sudah berakhir, ikuti arahan resmi dari tim Ruangguru untuk melanjutkan training.</div>
+          <div class="help-item"><b>3. Section masih terkunci</b><br>Learning Journey harus dikerjakan berurutan: Pre-Test → Video → Post-Test → Modul Latihan.</div>
+          <div class="help-item"><b>4. Progress belum berubah</b><br>Klik tombol Sinkronkan atau refresh halaman. Pastikan koneksi internet stabil saat menekan tombol selesai.</div>
+        </div>
+      </article>`;
+    }
+
+    function renderCompletion(){
+      const moduleLinks = MATERIALS.map(section => section.moduleUrl
+        ? `<a class="secondary-btn" href="${section.moduleUrl}" target="_blank" rel="noopener">Section ${section.moduleNo}</a>`
+        : `<button class="ghost-btn" type="button" disabled>Section ${section.moduleNo} belum ada link</button>`
+      ).join('');
+      $('#contentCard').innerHTML = `<div class="result-hero">
+        <h2>Seluruh Section Selesai. Pencapaianmu Tercatat!</h2>
+        <p>Selamat, kamu sudah menuntaskan seluruh rangkaian Sempoa Teacher Academy. Menyelesaikan training ini membutuhkan fokus, disiplin, dan komitmen yang kuat. Pencapaian ini menjadi langkah penting menuju kesiapanmu sebagai calon pengajar sempoa Ruangguru.
+
+Apa langkah selanjutnya?
+Saat ini, seluruh data pengerjaan dan hasil Post-Test kamu sudah aman tersimpan di dalam sistem dan sedang dalam tahap review. Proses ini penting agar kami dapat memastikan kesiapan setiap calon pengajar sebelum mulai membimbing kelas nyata.
+
+Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email kamu, kamu bisa menggunakan waktu luang ini untuk memperlancar gerakan jari melalui Modul Latihan yang ada di setiap section. Semoga hasil review-nya baik dan sampai jumpa di ruang kelas Mathcamps by Ruangguru.</p>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:20px">${moduleLinks}</div>
+      </div>`;
+    }
+
+    function startTimer(){
+      clearInterval(state.timerHandle);
+      const tick = () => {
+        if(!state.session) return;
+        if(state.session.isSpecial){
+          $('#timerValue').textContent = 'Permanen';
+          $('#timerCaption').textContent = 'Akun khusus tidak terikat batas waktu akses.';
+          return;
+        }
+        const end = new Date(state.session.expiresAt).getTime();
+        const diff = end - Date.now();
+        if(diff <= 0){
+          $('#timerValue').textContent = '00:00:00';
+          $('#timerCaption').textContent = 'Masa akses sudah berakhir. Silakan ikuti arahan resmi dari tim Ruangguru.';
+          return;
+        }
+        const h = Math.floor(diff / 3600000);
+        const m = Math.floor((diff % 3600000) / 60000);
+        const s = Math.floor((diff % 60000) / 1000);
+        $('#timerValue').textContent = `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+        $('#timerCaption').textContent = state.session.extendedAt ? 'Akses resmi sedang berjalan.' : 'Dihitung sejak akses pertama peserta.';
+      };
+      tick();
+      state.timerHandle = setInterval(tick, 1000);
+    }
+
+    function startVideo(section, videoIndex, stepId){
+      stopVideo();
+      const video = section.videos[videoIndex];
+      state.activeVideo = { section, video, videoIndex, stepId };
+      state.quizAlreadyShown = false;
+      state.quizPassed = isDone(stepId);
+      state.selectedQuizOption = null;
+      $('#contentCard').innerHTML = `<div class="video-panel">
+        <button class="ghost-btn" id="backToSection" type="button">← Kembali ke Section</button>
+        <div class="video-shell">
+          <div id="player"></div>
+          <div class="yt-top-mask" aria-hidden="true"></div>
+          <div class="yt-left-mask" aria-hidden="true"></div>
+          <div class="yt-mask"><img src="${APP_CONFIG.youtubeMask}" alt="Ruangguru"><img src="${APP_CONFIG.mathChampsLogo}" alt="Mathchamps"></div>
+        </div>
+        <div class="video-info">
+          <div><h3>Video ${videoIndex + 1}: ${video.title}</h3><p>Video akan berhenti otomatis di titik checkpoint. Jawab dengan benar agar kamu bisa melanjutkan sampai selesai.</p></div>
+          <span class="pill ${isDone(stepId) ? 'done' : 'current'}">${isDone(stepId) ? 'Sudah selesai' : 'Sedang belajar'}</span>
+        </div>
+      </div>`;
+      $('#backToSection').addEventListener('click', () => { stopVideo(); renderSectionDetail(section); });
+      loadYoutubePlayer(video.youtubeId);
+    }
+
+    function loadYoutubePlayer(youtubeId){
+      if(window.YT && window.YT.Player) return createPlayer(youtubeId);
+      window.onYouTubeIframeAPIReady = () => createPlayer(youtubeId);
+      const tag = document.createElement('script');
+      tag.src = 'https://www.youtube.com/iframe_api';
+      document.head.appendChild(tag);
+    }
+
+    function createPlayer(youtubeId){
+      state.player = new YT.Player('player', {
+        videoId: youtubeId,
+        playerVars: { rel:0, modestbranding:1, playsinline:1, enablejsapi:1, iv_load_policy:3, fs:0, controls:0, disablekb:1 },
+        events: {
+          onReady: (event) => { event.target.playVideo(); startVideoCheck(); },
+          onStateChange: async (event) => {
+            if(event.data === YT.PlayerState.ENDED){
+              if(state.quizPassed || isDone(state.activeVideo.stepId)){
+                await markCompleted(state.activeVideo.stepId, 'video');
+                showMessage('Video Selesai! ✅', 'Mantap! Progress video kamu sudah tersimpan. Materi berikutnya sudah bisa dibuka.');
+              }else{
+                showQuiz();
+              }
+            }
+          }
+        }
+      });
+    }
+
+    function startVideoCheck(){
+      clearInterval(state.videoCheckHandle);
+      state.videoCheckHandle = setInterval(() => {
+        if(!state.player || !state.activeVideo || state.quizAlreadyShown || state.quizPassed || isDone(state.activeVideo.stepId)) return;
+        const quiz = state.activeVideo.video.quiz;
+        if(!quiz) return;
+        const duration = Number(state.player.getDuration?.() || 0);
+        const current = Number(state.player.getCurrentTime?.() || 0);
+        const triggerAt = Number(quiz.triggerAt || 0);
+        const shouldShow = triggerAt > 0 ? current >= triggerAt : (duration > 0 && current >= duration * 0.45);
+        if(shouldShow){
+          state.quizAlreadyShown = true;
+          state.player.pauseVideo();
+          showQuiz();
+        }
+      }, 700);
+    }
+
+    function showQuiz(){
+      const quiz = state.activeVideo?.video?.quiz;
+      if(!quiz) return;
+      state.selectedQuizOption = null;
+      $('#quizQuestion').textContent = quiz.question;
+      $('#quizMedia').innerHTML = quiz.image ? `<img class="quiz-image" src="${quiz.image}" alt="Gambar soal sempoa">` : '';
+      $('#quizOptions').innerHTML = '';
+      $('#quizTextAnswer').classList.add('hidden');
+      $('#quizTextAnswer').value = '';
+
+      if(quiz.kind === 'input'){
+        $('#quizTextAnswer').classList.remove('hidden');
+        setTimeout(() => $('#quizTextAnswer').focus(), 100);
+      }else{
+        const letters = ['A','B','C','D'];
+        $('#quizOptions').innerHTML = quiz.options.map((option, index) => `<button type="button" class="quiz-option" data-index="${index}" data-letter="${letters[index] || index+1}">${option}</button>`).join('');
+        $$('#quizOptions .quiz-option').forEach(btn => btn.addEventListener('click', () => {
+          state.selectedQuizOption = Number(btn.dataset.index);
+          $$('#quizOptions .quiz-option').forEach(x => x.classList.remove('selected'));
+          btn.classList.add('selected');
+        }));
+      }
+
+      $('#quizFeedback').classList.add('hidden');
+      const reviewBtn = $('#reviewVideoButton');
+      if(reviewBtn) reviewBtn.classList.add('hidden');
+      $('#quizModal').classList.remove('hidden');
+    }
+
+    function normalizeAnswer(value){
+      return String(value || '').trim().toLowerCase().replace(/\s+/g,'').replace(/\./g,'').replace(/,/g,'');
+    }
+
+    $('#submitQuizButton').addEventListener('click', () => {
+      const quiz = state.activeVideo?.video?.quiz;
+      if(!quiz) return;
+      let correct = false;
+
+      if(quiz.kind === 'input'){
+        const answer = $('#quizTextAnswer').value;
+        if(!answer.trim()){
+          $('#quizFeedback').textContent = 'Tulis jawabanmu dulu sebelum dikirim.';
+          $('#quizFeedback').classList.remove('hidden');
+          return;
+        }
+        correct = normalizeAnswer(answer) === normalizeAnswer(quiz.answer);
+      }else{
+        if(state.selectedQuizOption === null){
+          $('#quizFeedback').textContent = 'Pilih salah satu jawaban dulu, ya.';
+          $('#quizFeedback').classList.remove('hidden');
+          return;
+        }
+        correct = state.selectedQuizOption === quiz.answer;
+      }
+
+      if(!correct){
+        $('#quizFeedback').textContent = 'Belum tepat. Kamu bisa cek kembali bagian video sebelum checkpoint, lalu coba jawab lagi dengan lebih yakin.';
+        $('#quizFeedback').classList.remove('hidden');
+        const reviewBtn = $('#reviewVideoButton');
+        if(reviewBtn) reviewBtn.classList.remove('hidden');
+        return;
+      }
+      state.quizPassed = true;
+      $('#quizModal').classList.add('hidden');
+      showMessage('Jawaban Benar! ✨', 'Bagus. Kamu sudah memahami checkpoint ini dan bisa lanjut menonton video sampai selesai.', () => {
+        try{ state.player?.playVideo?.(); }catch(e){}
+      });
+    });
+
+    $('#reviewVideoButton').addEventListener('click', () => {
+      const quiz = state.activeVideo?.video?.quiz;
+      $('#quizModal').classList.add('hidden');
+      $('#quizFeedback').classList.add('hidden');
+      $('#reviewVideoButton').classList.add('hidden');
+      state.selectedQuizOption = null;
+      const triggerAt = Number(quiz?.triggerAt || 0);
+      const rewindTo = Math.max(0, triggerAt - 25);
+      state.quizAlreadyShown = false;
+      try{
+        state.player?.seekTo?.(rewindTo, true);
+        state.player?.playVideo?.();
+      }catch(e){}
+    });
+
+    $('#quizTextAnswer').addEventListener('keydown', (event) => {
+      if(event.key === 'Enter') $('#submitQuizButton').click();
+    });
+
+    function stopVideo(){
+      clearInterval(state.videoCheckHandle);
+      if(state.player && state.player.destroy){
+        try{ state.player.destroy(); }catch(e){}
+      }
+      state.player = null;
+      state.activeVideo = null;
+      $('#quizModal').classList.add('hidden');
+    }
+
+    function showMessage(title, body, onClose){
+      $('#messageTitle').textContent = title;
+      $('#messageBody').textContent = sanitizeVisibleMessage(body);
+      $('#messageModal').classList.remove('hidden');
+      $('#messageClose').onclick = () => {
+        $('#messageModal').classList.add('hidden');
+        if(onClose) onClose();
+      };
+    }
+
+    async function boot(){
+      const stored = localStorage.getItem(APP_CONFIG.storageKey);
+      if(!stored) return showLogin();
+      try{
+        const cached = JSON.parse(stored);
+        state.session = cached;
+        state.progress = cached.progress || {};
+        showApp();
+        const response = await apiCall('getState', { token: cached.token });
+        saveSession({ ...cached, ...response.session });
+        renderShell();
+      }catch(error){
+        clearSession();
+        showLogin(error.message);
+      }
+    }
+
+    boot();
+  </script>
+</body>
+</html>
