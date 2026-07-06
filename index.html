@@ -438,6 +438,54 @@
         @media(max-width:1180px){.section-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.detail-layout{grid-template-columns:1fr}.detail-hero img{height:310px}}
     @media(max-width:900px){.login-card{grid-template-columns:1fr}.app-shell{grid-template-columns:1fr;padding:14px}.sidebar{position:relative;top:0;height:auto}.nav-list{grid-template-columns:repeat(3,1fr)}.timer-box{margin-top:0}.topbar{align-items:flex-start;flex-direction:column}.top-actions{justify-content:flex-start}.content-card{min-height:auto}.tracker-grid{grid-template-columns:1fr}}
     @media(max-width:680px){.login-screen{width:calc(100% - 24px);padding:20px 0}.login-hero,.login-form-wrap{padding:28px}.hero-stat-grid{grid-template-columns:1fr}.section-grid{grid-template-columns:1fr}.nav-list{grid-template-columns:1fr}.step-card{grid-template-columns:auto 1fr}.step-actions{grid-column:1/-1;justify-content:stretch}.step-actions button,.step-actions a{width:100%}.video-shell{min-height:220px}.video-info{align-items:flex-start;flex-direction:column}.section-img{height:180px}.content-card,.topbar{padding:18px;border-radius:26px}}
+
+
+    /* Final fix: blok area klik YouTube kanan bawah tanpa blok hitam */
+    .yt-watch-access-shield{
+      position:absolute!important;
+      right:0!important;
+      bottom:0!important;
+      width:52%!important;
+      height:96px!important;
+      z-index:55!important;
+      pointer-events:auto!important;
+      cursor:default!important;
+      background:rgba(255,255,255,.001)!important;
+      touch-action:none!important;
+      user-select:none!important;
+    }
+    .yt-mask{
+      z-index:70!important;
+      pointer-events:auto!important;
+    }
+    .yt-bottom-shield{
+      z-index:54!important;
+      pointer-events:auto!important;
+      background:rgba(255,255,255,.001)!important;
+      cursor:default!important;
+    }
+    @media(max-width:900px){
+      .yt-watch-access-shield{width:64%!important;height:76px!important}
+    }
+
+
+    /* Revisi final: shield kiri bawah dibuat transparan, tanpa blok hitam */
+    .yt-left-mask{
+      background:rgba(255,255,255,.001)!important;
+      backdrop-filter:none!important;
+      -webkit-backdrop-filter:none!important;
+      box-shadow:none!important;
+      border-radius:0!important;
+      cursor:default!important;
+    }
+    .yt-left-mask::before,.yt-left-mask::after{display:none!important;content:none!important}
+    .yt-bottom-shield{
+      background:rgba(255,255,255,.001)!important;
+      backdrop-filter:none!important;
+      -webkit-backdrop-filter:none!important;
+      box-shadow:none!important;
+    }
+
   </style>
 </head>
 <body>
@@ -1053,6 +1101,7 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
           <div class="yt-top-right-mask" aria-hidden="true"></div>
           <div class="yt-bottom-shield" aria-hidden="true"></div>
           <div class="yt-left-mask" aria-hidden="true"></div>
+          <div class="yt-watch-access-shield" aria-hidden="true"></div>
           <div class="yt-mask"><img src="${APP_CONFIG.youtubeMask}" alt="Ruangguru"><img src="${APP_CONFIG.mathChampsLogo}" alt="Mathchamps"></div>
         </div>
         <div class="video-info">
@@ -1061,6 +1110,11 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
         </div>
       </div>`;
       $('#backToSection').addEventListener('click', () => { stopVideo(); renderSectionDetail(section); });
+      $$('.yt-watch-access-shield, .yt-bottom-shield, .yt-left-mask, .yt-top-mask, .yt-top-right-mask, .yt-mask').forEach(el => {
+        ['click','dblclick','contextmenu','mousedown','mouseup','touchstart','touchend'].forEach(evt => {
+          el.addEventListener(evt, (event) => { event.preventDefault(); event.stopPropagation(); }, { passive:false });
+        });
+      });
       loadYoutubePlayer(video.youtubeId);
     }
 
