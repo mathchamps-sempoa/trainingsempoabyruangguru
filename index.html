@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Sempoa Teacher Academy</title>
+  <title>Sempoa Teacher Academy - Locked YouTube v2</title>
   <meta name="description" content="Learning Journey Training Lite Sempoa untuk calon pengajar Mathchamps by Ruangguru." />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -750,6 +750,7 @@
 
     .video-shell {
       position: relative;
+      isolation: isolate;
       aspect-ratio: 16 / 9;
       min-height: 330px;
       background: #07162b;
@@ -758,21 +759,20 @@
       box-shadow: 0 20px 44px rgba(7,22,43,.28);
     }
 
-    #player {
+    #player,
+    #player iframe {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
-    }
-
-    #player iframe {
+      z-index: 1;
+      width: 100% !important;
+      height: 100% !important;
       pointer-events: none !important;
     }
 
     .yt-click-shield {
       position: absolute;
       inset: 0;
-      z-index: 20;
+      z-index: 9998;
       background: transparent;
       pointer-events: auto;
       touch-action: none;
@@ -782,31 +782,34 @@
 
     .video-brand-badge {
       position: absolute;
-      right: 14px;
-      bottom: 14px;
-      z-index: 30;
+      right: 18px;
+      bottom: 20px;
+      z-index: 9999;
+      min-width: 220px;
+      min-height: 54px;
       display: inline-flex;
       align-items: center;
-      gap: 10px;
-      max-width: calc(100% - 28px);
-      padding: 8px 12px;
+      justify-content: center;
+      gap: 12px;
+      max-width: calc(100% - 36px);
+      padding: 10px 16px;
       border-radius: 999px;
-      background: rgba(255, 255, 255, .96);
-      border: 1px solid rgba(214, 234, 248, .98);
-      box-shadow: 0 12px 28px rgba(7, 22, 43, .18);
+      background: rgba(255, 255, 255, .98);
+      border: 1px solid rgba(214, 234, 248, 1);
+      box-shadow: 0 14px 32px rgba(7, 22, 43, .22);
       pointer-events: none;
     }
 
     .video-brand-badge img {
-      height: 24px;
-      max-width: 112px;
+      height: 28px;
+      max-width: 118px;
       object-fit: contain;
       display: block;
     }
 
     .video-brand-badge .divider {
       width: 1px;
-      height: 22px;
+      height: 28px;
       background: #d6eaf8;
       flex: 0 0 auto;
     }
@@ -814,14 +817,16 @@
     @media (max-width: 680px) {
       .video-brand-badge {
         right: 10px;
-        bottom: 10px;
-        padding: 6px 9px;
-        gap: 7px;
+        bottom: 12px;
+        min-width: 160px;
+        min-height: 42px;
+        padding: 7px 10px;
+        gap: 8px;
       }
 
       .video-brand-badge img {
-        height: 18px;
-        max-width: 82px;
+        height: 20px;
+        max-width: 78px;
       }
     }
 
@@ -1427,7 +1432,8 @@
       player: null,
       timerHandle: null,
       videoCheckHandle: null,
-      videoTimeHandle: null
+      videoTimeHandle: null,
+      completingVideo: false
     };
 
     const $ = selector => document.querySelector(selector);
@@ -1756,6 +1762,16 @@
       }
     });
 
+    document.addEventListener('keydown', event => {
+      if (!state.activeVideo) return;
+
+      const blockedKeys = [' ', 'Spacebar', 'ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown', 'f', 'F', 'k', 'K', 'j', 'J', 'l', 'L'];
+      if (blockedKeys.includes(event.key)) {
+        event.preventDefault();
+        event.stopPropagation();
+      }
+    }, true);
+
     function renderParticipantAvatar(session) {
       const avatar = $('#profileAvatar');
 
@@ -1994,8 +2010,13 @@
       });
     }
 
-    async function markCompleted(itemId, type = 'activity') {
-      if (isDone(itemId)) return;
+    async function markCompleted(itemId, type = 'activity', shouldRender = true) {
+      const completedAt = new Date().toISOString();
+
+      if (isDone(itemId)) {
+        if (shouldRender) renderShell();
+        return true;
+      }
 
       try {
         const response = await apiCall('saveProgress', {
@@ -2004,16 +2025,46 @@
           type
         });
 
-        state.progress = response.progress || {
-          ...state.progress,
-          [itemId]: new Date().toISOString()
+        state.progress = {
+          ...(state.progress || {}),
+          ...(response.progress || {}),
+          [itemId]: response.progress?.[itemId] || completedAt
         };
 
         state.session.progress = state.progress;
         localStorage.setItem(APP_CONFIG.storageKey, JSON.stringify(state.session));
-        renderShell();
+
+        if (shouldRender) renderShell();
+        return true;
       } catch (error) {
         showMessage('Progress Belum Tersimpan', error.message);
+        return false;
+      }
+    }
+
+    async function completeCurrentVideo() {
+      if (!state.activeVideo || state.completingVideo) return;
+
+      if (!state.quizPassed && !isDone(state.activeVideo.stepId)) {
+        try { state.player?.pauseVideo?.(); } catch (error) {}
+        showQuiz();
+        return;
+      }
+
+      state.completingVideo = true;
+      const completedStepId = state.activeVideo.stepId;
+
+      try {
+        const saved = await markCompleted(completedStepId, 'video', true);
+
+        if (saved) {
+          showMessage(
+            'Video Selesai! ✅',
+            'Mantap! Progress video kamu sudah tersimpan. Post-Test atau materi berikutnya sudah bisa dibuka.'
+          );
+        }
+      } finally {
+        state.completingVideo = false;
       }
     }
 
@@ -2225,7 +2276,9 @@
           fs: 0,
           controls: 0,
           disablekb: 1,
-          showinfo: 0
+          showinfo: 0,
+          cc_load_policy: 0,
+          origin: window.location.origin
         },
         events: {
           onReady: event => {
@@ -2233,14 +2286,9 @@
             startVideoCheck();
             startVideoTimeUpdater();
           },
-          onStateChange: async event => {
+          onStateChange: event => {
             if (event.data === YT.PlayerState.ENDED && state.activeVideo) {
-              if (state.quizPassed || isDone(state.activeVideo.stepId)) {
-                await markCompleted(state.activeVideo.stepId, 'video');
-                showMessage('Video Selesai! ✅', 'Mantap! Progress video kamu sudah tersimpan. Materi berikutnya sudah bisa dibuka.');
-              } else {
-                showQuiz();
-              }
+              completeCurrentVideo();
             }
           }
         }
@@ -2299,15 +2347,21 @@
       clearInterval(state.videoCheckHandle);
 
       state.videoCheckHandle = setInterval(() => {
-        if (!state.player || !state.activeVideo || state.quizAlreadyShown || state.quizPassed || isDone(state.activeVideo.stepId)) return;
+        if (!state.player || !state.activeVideo || state.completingVideo) return;
 
         const quiz = state.activeVideo.video.quiz;
-        if (!quiz) return;
-
+        const stepId = state.activeVideo.stepId;
         const duration = Number(state.player.getDuration?.() || 0);
         const current = Number(state.player.getCurrentTime?.() || 0);
-        const triggerAt = Number(quiz.triggerAt || 0);
 
+        if (duration > 0 && current >= duration - 2) {
+          completeCurrentVideo();
+          return;
+        }
+
+        if (!quiz || state.quizAlreadyShown || state.quizPassed || isDone(stepId)) return;
+
+        const triggerAt = Number(quiz.triggerAt || 0);
         const shouldShow = triggerAt > 0
           ? current >= triggerAt
           : (duration > 0 && current >= duration * .45);
