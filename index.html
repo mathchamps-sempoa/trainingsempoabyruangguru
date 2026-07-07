@@ -844,7 +844,8 @@
       player: null,
       timerHandle: null,
       videoCheckHandle: null,
-      videoTimeHandle: null
+      videoTimeHandle: null,
+      autoOpenedFirstVideo: false
     };
 
     const $ = (selector) => document.querySelector(selector);
@@ -877,6 +878,21 @@
       return Math.round(ids.filter(isDone).length / ids.length * 100);
     }
     function allFinished(){ return requiredItems().every(isDone); }
+
+    function shouldAutoOpenFirstVideo(){
+      return isDone('s1-pre') && !isDone('s1-v1');
+    }
+
+    function autoOpenFirstVideoAfterPretest(){
+      if(state.autoOpenedFirstVideo || !shouldAutoOpenFirstVideo()) return;
+      const section = MATERIALS[0];
+      if(!section || !section.videos || !section.videos.length) return;
+
+      state.autoOpenedFirstVideo = true;
+      state.activeView = 'journey';
+      state.activeSectionId = section.id;
+      startVideo(section, 0, 's1-v1');
+    }
 
     function apiCall(action, payload = {}){
       if(!APP_CONFIG.scriptUrl || APP_CONFIG.scriptUrl.includes('PASTE_APPS_SCRIPT')){
@@ -921,6 +937,7 @@
       localStorage.removeItem(APP_CONFIG.storageKey);
       state.session = null;
       state.progress = {};
+      state.autoOpenedFirstVideo = false;
       stopVideo();
       clearInterval(state.timerHandle);
     }
@@ -930,11 +947,12 @@
       $('#appShell').classList.add('hidden');
       if(message) showLoginAlert(message);
     }
-    function showApp(){
+    function showApp(options = {}){
       $('#loginScreen').classList.add('hidden');
       $('#appShell').classList.remove('hidden');
       renderShell();
       startTimer();
+      if(options.autoOpenFirstVideo) setTimeout(autoOpenFirstVideoAfterPretest, 0);
     }
     function sanitizeVisibleMessage(message){
       const text = String(message || '');
@@ -989,7 +1007,7 @@
         const password = $('#passwordInput').value;
         const response = await apiCall('login', { email, password });
         saveSession(response.session);
-        showApp();
+        showApp({ autoOpenFirstVideo: true });
         if(response.session.isExtensionActivated){
           showMessage('Akses Aktif Kembali ✨', 'Akses kamu sudah aktif kembali. Yuk, lanjutkan learning journey dari progress terakhir.');
         }
@@ -1013,9 +1031,24 @@
         const response = await apiCall('getState', { token: state.session.token });
         saveSession({ ...state.session, ...response.session });
         renderShell();
+        autoOpenFirstVideoAfterPretest();
         showMessage('Progress Tersinkron ✨', 'Data terbaru dari Google Sheet sudah berhasil dimuat.');
       }catch(error){ showMessage('Sinkronisasi Gagal', error.message); }
       finally{ setButtonLoading(btn, false, '🔄 Sinkronkan'); }
+    });
+
+    let lastAutoSyncAt = 0;
+    window.addEventListener('focus', async () => {
+      if(!state.session || isDone('s1-pre')) return;
+      if(Date.now() - lastAutoSyncAt < 5000) return;
+      lastAutoSyncAt = Date.now();
+
+      try{
+        const response = await apiCall('getState', { token: state.session.token });
+        saveSession({ ...state.session, ...response.session });
+        renderShell();
+        autoOpenFirstVideoAfterPretest();
+      }catch(e){}
     });
 
     $$('.nav-btn').forEach(btn => btn.addEventListener('click', () => {
@@ -1134,7 +1167,10 @@
       const done = isDone(step.id);
       const cardExtraClass = (step.type === 'pre' || step.type === 'post') ? 'form-step' : '';
       let action = '';
-      if(step.type === 'pre' || step.type === 'post'){
+      if(step.type === 'pre' && step.id === 's1-pre'){
+        action = `<a class="secondary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Google Form</a>
+          <span class="pill ${done ? 'done' : 'current'}">${done ? 'Terdeteksi otomatis' : 'Dicek otomatis'}</span>`;
+      }else if(step.type === 'pre' || step.type === 'post'){
         action = `<a class="secondary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Google Form</a>
           <button class="primary-btn mark-form" data-id="${step.id}" type="button" ${unlocked || done ? '' : 'disabled'}>${done ? 'Sudah Selesai' : 'Saya Sudah Mengerjakan'}</button>`;
       }else if(step.type === 'video'){
@@ -1516,6 +1552,7 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
         const response = await apiCall('getState', { token: cached.token });
         saveSession({ ...cached, ...response.session });
         renderShell();
+        autoOpenFirstVideoAfterPretest();
       }catch(error){
         clearSession();
         showLogin(error.message);
