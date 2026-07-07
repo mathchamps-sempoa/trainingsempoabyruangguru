@@ -765,6 +765,66 @@
       height: 100%;
     }
 
+    #player iframe {
+      pointer-events: none !important;
+    }
+
+    .yt-click-shield {
+      position: absolute;
+      inset: 0;
+      z-index: 20;
+      background: transparent;
+      pointer-events: auto;
+      touch-action: none;
+      user-select: none;
+      cursor: default;
+    }
+
+    .video-brand-badge {
+      position: absolute;
+      right: 14px;
+      bottom: 14px;
+      z-index: 30;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      max-width: calc(100% - 28px);
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, .96);
+      border: 1px solid rgba(214, 234, 248, .98);
+      box-shadow: 0 12px 28px rgba(7, 22, 43, .18);
+      pointer-events: none;
+    }
+
+    .video-brand-badge img {
+      height: 24px;
+      max-width: 112px;
+      object-fit: contain;
+      display: block;
+    }
+
+    .video-brand-badge .divider {
+      width: 1px;
+      height: 22px;
+      background: #d6eaf8;
+      flex: 0 0 auto;
+    }
+
+    @media (max-width: 680px) {
+      .video-brand-badge {
+        right: 10px;
+        bottom: 10px;
+        padding: 6px 9px;
+        gap: 7px;
+      }
+
+      .video-brand-badge img {
+        height: 18px;
+        max-width: 82px;
+      }
+    }
+
     .video-control-card {
       padding: 14px;
       display: flex;
@@ -1142,7 +1202,9 @@
     const APP_CONFIG = {
       scriptUrl: 'https://script.google.com/macros/s/AKfycbxpnTpgRr5IS_-4RN7UDFaSE5vp5D0EtpNX8lkdWsujuGly1SiWFQqXQjeASks8Cgw7/exec',
       storageKey: 'sempoaTeacherAcademySession.v4',
-      specialAvatar: 'https://roboguru-forum-cdn.ruangguru.com//image/57c49f7f-2512-4cfa-98e3-8734d96ad44b.jpeg'
+      specialAvatar: 'https://roboguru-forum-cdn.ruangguru.com//image/57c49f7f-2512-4cfa-98e3-8734d96ad44b.jpeg',
+      mathChampsLogo: 'https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png',
+      ruangguruLogo: 'https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ruang_Guru_logo.svg/3840px-Ruang_Guru_logo.svg.png'
     };
 
     const MATERIALS = [
@@ -2086,16 +2148,21 @@
         <div class="video-panel">
           <button class="ghost-btn" id="backToSection" type="button">← Kembali ke Section</button>
 
-          <div class="video-shell">
+          <div class="video-shell" oncontextmenu="return false">
             <div id="player"></div>
+            <div class="yt-click-shield" aria-hidden="true"></div>
+
+            <div class="video-brand-badge" aria-hidden="true">
+              <img src="${APP_CONFIG.ruangguruLogo}" alt="">
+              <span class="divider"></span>
+              <img src="${APP_CONFIG.mathChampsLogo}" alt="">
+            </div>
           </div>
 
           <div class="video-control-card">
             <div class="video-time-box" id="videoTimeInfo">00:00 / --:--</div>
-            <button class="secondary-btn" data-seek="-15" type="button">↶ 15 detik</button>
             <button class="secondary-btn" data-seek="-10" type="button">↶ 10 detik</button>
             <button class="secondary-btn" data-seek="10" type="button">10 detik ↷</button>
-            <button class="secondary-btn" data-seek="15" type="button">15 detik ↷</button>
           </div>
 
           <div class="video-info">
@@ -2112,6 +2179,16 @@
         stopVideo();
         renderSectionDetail(section);
       });
+
+      const clickShield = document.querySelector('.yt-click-shield');
+      if (clickShield) {
+        ['click', 'dblclick', 'contextmenu', 'mousedown', 'mouseup', 'touchstart', 'touchend'].forEach(eventName => {
+          clickShield.addEventListener(eventName, event => {
+            event.preventDefault();
+            event.stopPropagation();
+          }, { passive: false });
+        });
+      }
 
       $$('.video-control-card button[data-seek]').forEach(button => {
         button.addEventListener('click', () => {
@@ -2145,7 +2222,10 @@
           playsinline: 1,
           enablejsapi: 1,
           iv_load_policy: 3,
-          fs: 0
+          fs: 0,
+          controls: 0,
+          disablekb: 1,
+          showinfo: 0
         },
         events: {
           onReady: event => {
