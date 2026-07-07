@@ -82,7 +82,7 @@
       padding:46px;
       background:
         linear-gradient(135deg,rgba(0,92,157,.96),rgba(5,148,217,.90) 52%,rgba(249,178,51,.72)),
-        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp') center/cover;
+        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png') center/cover;
       color:white;
       position:relative;
       overflow:hidden;
@@ -330,7 +330,7 @@
     .login-hero{
       background:
         linear-gradient(135deg,rgba(0,75,141,.97),rgba(0,111,201,.93) 48%,rgba(66,201,232,.82) 78%,rgba(246,177,59,.78)),
-        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp') center/cover!important;
+        url('https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png') center/cover!important;
     }
     .profile-card,.credential-note,.academy-mark{
       background:linear-gradient(135deg,#eefaff 0%,#ffffff 55%,#fff6e3 100%)!important;
@@ -486,6 +486,124 @@
       box-shadow:none!important;
     }
 
+
+    /* Revisi tambahan: login logo jelas, step form tidak shrink, dan custom video control */
+    .login-hero{
+      background:linear-gradient(135deg,rgba(0,75,141,.97),rgba(0,111,201,.93) 48%,rgba(66,201,232,.82) 78%,rgba(246,177,59,.78))!important;
+    }
+    .login-logo-row{
+      display:flex;
+      align-items:center;
+      gap:14px;
+      flex-wrap:wrap;
+      margin:0 0 18px;
+    }
+    .login-logo-main,.login-logo-ruangguru{
+      display:block;
+      height:auto;
+      object-fit:contain;
+      background:transparent;
+      border:none;
+      box-shadow:none;
+      padding:0;
+      border-radius:0;
+    }
+    .login-logo-main{
+      width:188px;
+      max-width:50%;
+    }
+    .login-logo-ruangguru{
+      width:182px;
+      max-width:42%;
+      transform:translateY(2px);
+    }
+    .login-support-note{
+      margin:12px 0 0;
+      padding:12px 14px;
+      border-radius:18px;
+      background:#fff8ea;
+      border:1px solid #f7d389;
+      color:#654200;
+      font-size:12px;
+      line-height:1.55;
+      font-weight:800;
+    }
+    .step-card.form-step{
+      grid-template-columns:auto 1fr!important;
+      align-items:start!important;
+    }
+    .step-card.form-step .step-actions{
+      grid-column:1 / -1;
+      justify-content:flex-end;
+      padding-top:4px;
+      padding-left:58px;
+      border-top:1px dashed #e7f0fb;
+      margin-top:2px;
+    }
+    .step-card.form-step .step-desc{
+      max-width:100%;
+    }
+    .video-control-card{
+      background:#ffffff;
+      border:1px solid var(--line);
+      border-radius:24px;
+      padding:14px 16px;
+      box-shadow:var(--soft-shadow);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:14px;
+      flex-wrap:wrap;
+    }
+    .video-controls{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+    .video-control-btn{
+      min-width:86px;
+      height:40px;
+      border-radius:14px;
+      background:#eefaff;
+      color:#004b8d;
+      border:1px solid #cde8f7;
+      font-weight:900;
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+    }
+    .video-control-btn:hover{background:#def6ff;transform:translateY(-1px)}
+    .video-time-box{
+      display:flex;
+      flex-direction:column;
+      gap:2px;
+      min-width:170px;
+    }
+    .video-time-label{
+      font-size:11px;
+      font-weight:900;
+      color:#5c7288;
+      text-transform:uppercase;
+      letter-spacing:.06em;
+    }
+    .video-time-value{
+      font-size:16px;
+      font-weight:900;
+      color:#0f3154;
+    }
+    @media(max-width:680px){
+      .login-logo-row{gap:10px;margin-bottom:14px}
+      .login-logo-main{width:154px;max-width:50%;margin-bottom:0}
+      .login-logo-ruangguru{width:146px;max-width:42%}
+      .step-card.form-step .step-actions{padding-left:0;justify-content:stretch}
+      .video-control-card{align-items:stretch;flex-direction:column}
+      .video-controls{display:grid;grid-template-columns:1fr 1fr}
+      .video-control-btn{width:100%;min-width:0}
+    }
+
+
   </style>
 </head>
 <body>
@@ -505,10 +623,14 @@
       </div>
 
       <div class="login-form-wrap">
-        <div class="academy-mark">🧮</div>
+        <div class="login-logo-row" aria-label="Logo Mathchamps dan Ruangguru">
+          <img class="login-logo-main" src="https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png" alt="Mathchamps by Ruangguru">
+          <img class="login-logo-ruangguru" src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/71/Ruang_Guru_logo.svg/3840px-Ruang_Guru_logo.svg.png" alt="Ruangguru">
+        </div>
         <h2>Masuk ke Academy</h2>
         <p class="hint">Akses hanya tersedia untuk peserta dengan email terdaftar dan password yang dikirimkan oleh tim Ruangguru.</p>
         <div class="credential-note">Pastikan email yang kamu masukkan sama dengan email pendaftaran. Setelah berhasil masuk, ikuti alur belajar secara berurutan sampai seluruh section selesai.</div>
+        <div class="login-support-note">Jika email terdaftar tetap belum bisa masuk, hubungi tim Ruangguru dan sertakan email pendaftaran yang kamu gunakan.</div>
         <form id="loginForm">
           <div class="form-group">
             <label for="emailInput">Email peserta</label>
@@ -584,7 +706,7 @@
       <input id="quizTextAnswer" class="quiz-input hidden" type="text" inputmode="numeric" placeholder="Tulis jawabanmu di sini">
       <div id="quizFeedback" class="alert error hidden"></div>
       <div class="modal-actions">
-        <button id="reviewVideoButton" class="ghost-btn quiz-review-btn hidden" type="button">↺ Cek Kembali Video</button>
+        <button id="reviewVideoButton" class="ghost-btn quiz-review-btn hidden" type="button">↺ Kembali ke Video Materi</button>
         <button id="submitQuizButton" class="primary-btn" type="button">Kirim Jawaban</button>
       </div>
     </div>
@@ -607,7 +729,7 @@
       storageKey: 'sempoaTeacherAcademySession.v2',
       specialAvatar: 'https://roboguru-forum-cdn.ruangguru.com//image/57c49f7f-2512-4cfa-98e3-8734d96ad44b.jpeg',
       youtubeMask: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRrg8sPpqf9SOQ1haFQ_SRvYRcnRFa3MzRglTOa-DfbHg&s=10',
-      mathChampsLogo: 'https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png?convert=webp'
+      mathChampsLogo: 'https://cdn-web-2.ruangguru.com//landing-pages/assets/dd835641-b1b8-4a72-9537-d59cd55ccbf9.png'
     };
 
     const MATERIALS = [
@@ -633,7 +755,7 @@
         moduleUrl: 'https://drive.google.com/file/d/1hYx0waLvEXjYINSMkAxdPiPODRZDFNG6/view?usp=drive_link', moduleLabel: 'Modul Kawan Kecil',
         videos: [
           { title: 'Kawan Kecil 1', youtubeId: 'aMD7jUXH2lI', quiz: { kind:'choice', triggerAt:162, question: 'Berapa kawan kecil dari 6?', options: ['1', '3', 'Tidak ada'], answer: 2 } },
-          { title: 'Kawan Kecil 2', youtubeId: 'wOoubFdBlf4', quiz: { kind:'choice', triggerAt:318, question: 'Bagaimana cara menghitung 8 - 4 di sempoa?', options: ['Menaikkan manik 1 dan manik 5 ke atas', 'Menurunkan manik 4', 'Membuka atau mengeluarkan semua manik'], answer: 2 } }
+          { title: 'Kawan Kecil 2', youtubeId: 'wOoubFdBlf4', quiz: { kind:'choice', triggerAt:318, question: 'Bagaimana cara menghitung 8 - 4 di sempoa?', options: ['Menaikkan manik 1 dan manik 5 ke atas', 'Menurunkan manik 4', 'Membuka atau mengeluarkan semua manik'], answer: 0 } }
         ]
       },
       {
@@ -695,7 +817,8 @@
       quizPassed: false,
       player: null,
       timerHandle: null,
-      videoCheckHandle: null
+      videoCheckHandle: null,
+      videoTimeHandle: null
     };
 
     const $ = (selector) => document.querySelector(selector);
@@ -960,6 +1083,7 @@
     function renderStep(step){
       const unlocked = step.type === 'module' ? isDone(step.id.replace('-module','-post')) : isRequiredUnlocked(step.id);
       const done = isDone(step.id);
+      const cardExtraClass = (step.type === 'pre' || step.type === 'post') ? 'form-step' : '';
       let action = '';
       if(step.type === 'pre' || step.type === 'post'){
         action = `<a class="secondary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Google Form</a>
@@ -971,7 +1095,7 @@
           ? `<a class="primary-btn ${unlocked ? '' : 'disabled'}" href="${unlocked ? step.url : '#'}" target="_blank" rel="noopener">Buka Modul Latihan</a>`
           : `<button class="ghost-btn" type="button" disabled>Link Modul Belum Dipasang</button>`;
       }
-      return `<article class="step-card ${done ? 'done' : ''} ${unlocked ? '' : 'locked'}">
+      return `<article class="step-card ${cardExtraClass} ${done ? 'done' : ''} ${unlocked ? '' : 'locked'}">
         <div class="step-icon">${done ? '✅' : step.icon}</div>
         <div>
           <p class="step-title">${step.title}</p>
@@ -1033,12 +1157,12 @@
     function renderHelp(){
       $('#contentCard').innerHTML = `<article class="help-card">
         <h3>Butuh Bantuan? ❓</h3>
-        <p>Kalau ada kendala saat mengakses materi, cek beberapa hal di bawah ini terlebih dahulu.</p>
+        <p>Kalau ada kendala saat mengakses materi setelah berhasil login, cek beberapa hal di bawah ini terlebih dahulu.</p>
         <div class="help-list">
-          <div class="help-item"><b>1. Email tidak bisa login</b><br>Pastikan email yang dimasukkan sama persis dengan email di sheet Pendaftaran-Training.</div>
-          <div class="help-item"><b>2. Waktu akses habis</b><br>Jika masa akses sudah berakhir, ikuti arahan resmi dari tim Ruangguru untuk melanjutkan training.</div>
-          <div class="help-item"><b>3. Section masih terkunci</b><br>Learning Journey harus dikerjakan berurutan: Pre-Test → Video → Post-Test → Modul Latihan.</div>
-          <div class="help-item"><b>4. Progress belum berubah</b><br>Klik tombol Sinkronkan atau refresh halaman. Pastikan koneksi internet stabil saat menekan tombol selesai.</div>
+          <div class="help-item"><b>1. Waktu akses habis</b><br>Jika masa akses sudah berakhir, ikuti arahan resmi dari tim Ruangguru untuk melanjutkan training.</div>
+          <div class="help-item"><b>2. Section masih terkunci</b><br>Learning Journey harus dikerjakan berurutan: Pre-Test → Video → Post-Test → Modul Latihan.</div>
+          <div class="help-item"><b>3. Progress belum berubah</b><br>Klik tombol Sinkronkan atau refresh halaman. Pastikan koneksi internet stabil saat menekan tombol selesai.</div>
+          <div class="help-item"><b>4. Video tidak merespons</b><br>Refresh halaman, lalu buka kembali video dari section yang sedang kamu pelajari. Pastikan koneksi internet stabil.</div>
         </div>
       </article>`;
     }
@@ -1104,6 +1228,18 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
           <div class="yt-watch-access-shield" aria-hidden="true"></div>
           <div class="yt-mask"><img src="${APP_CONFIG.youtubeMask}" alt="Ruangguru"><img src="${APP_CONFIG.mathChampsLogo}" alt="Mathchamps"></div>
         </div>
+        <div class="video-control-card">
+          <div class="video-time-box">
+            <span class="video-time-label">Durasi video</span>
+            <span id="videoTimeInfo" class="video-time-value">00:00 / --:--</span>
+          </div>
+          <div class="video-controls" aria-label="Kontrol video custom">
+            <button class="video-control-btn" data-seek="-15" type="button">↶ 15 detik</button>
+            <button class="video-control-btn" data-seek="-10" type="button">↶ 10 detik</button>
+            <button class="video-control-btn" data-seek="10" type="button">10 detik ↷</button>
+            <button class="video-control-btn" data-seek="15" type="button">15 detik ↷</button>
+          </div>
+        </div>
         <div class="video-info">
           <div><h3>Video ${videoIndex + 1}: ${video.title}</h3><p>Video akan berhenti otomatis di titik checkpoint. Jawab dengan benar agar kamu bisa melanjutkan sampai selesai.</p></div>
           <span class="pill ${isDone(stepId) ? 'done' : 'current'}">${isDone(stepId) ? 'Sudah selesai' : 'Sedang belajar'}</span>
@@ -1115,6 +1251,7 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
           el.addEventListener(evt, (event) => { event.preventDefault(); event.stopPropagation(); }, { passive:false });
         });
       });
+      $$('.video-control-btn').forEach(btn => btn.addEventListener('click', () => seekVideoBy(Number(btn.dataset.seek || 0))));
       loadYoutubePlayer(video.youtubeId);
     }
 
@@ -1131,7 +1268,7 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
         videoId: youtubeId,
         playerVars: { rel:0, modestbranding:1, playsinline:1, enablejsapi:1, iv_load_policy:3, fs:0, controls:0, disablekb:1, showinfo:0, autohide:1 },
         events: {
-          onReady: (event) => { event.target.playVideo(); startVideoCheck(); },
+          onReady: (event) => { event.target.playVideo(); startVideoCheck(); startVideoTimeUpdater(); },
           onStateChange: async (event) => {
             if(event.data === YT.PlayerState.ENDED){
               if(state.quizPassed || isDone(state.activeVideo.stepId)){
@@ -1144,6 +1281,45 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
           }
         }
       });
+    }
+
+
+    function formatVideoTime(seconds){
+      seconds = Math.max(0, Math.floor(Number(seconds) || 0));
+      const h = Math.floor(seconds / 3600);
+      const m = Math.floor((seconds % 3600) / 60);
+      const s = seconds % 60;
+      if(h > 0) return `${h}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+      return `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+    }
+
+    function updateVideoTimeInfo(){
+      const el = $('#videoTimeInfo');
+      if(!el || !state.player) return;
+      let current = 0;
+      let duration = 0;
+      try{
+        current = Number(state.player.getCurrentTime?.() || 0);
+        duration = Number(state.player.getDuration?.() || 0);
+      }catch(e){}
+      el.textContent = `${formatVideoTime(current)} / ${duration ? formatVideoTime(duration) : '--:--'}`;
+    }
+
+    function startVideoTimeUpdater(){
+      clearInterval(state.videoTimeHandle);
+      updateVideoTimeInfo();
+      state.videoTimeHandle = setInterval(updateVideoTimeInfo, 500);
+    }
+
+    function seekVideoBy(deltaSeconds){
+      if(!state.player) return;
+      try{
+        const current = Number(state.player.getCurrentTime?.() || 0);
+        const duration = Number(state.player.getDuration?.() || 0);
+        const next = Math.max(0, duration ? Math.min(duration - 1, current + deltaSeconds) : current + deltaSeconds);
+        state.player.seekTo(next, true);
+        updateVideoTimeInfo();
+      }catch(e){}
     }
 
     function startVideoCheck(){
@@ -1189,7 +1365,9 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
 
       $('#quizFeedback').classList.add('hidden');
       const reviewBtn = $('#reviewVideoButton');
+      const submitBtn = $('#submitQuizButton');
       if(reviewBtn) reviewBtn.classList.add('hidden');
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.classList.remove('disabled'); submitBtn.textContent = 'Kunci Jawaban & Simpan Nilai 💾'; }
       $('#quizModal').classList.remove('hidden');
     }
 
@@ -1220,10 +1398,12 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
       }
 
       if(!correct){
-        $('#quizFeedback').textContent = 'Belum tepat. Kamu bisa cek kembali bagian video sebelum checkpoint, lalu coba jawab lagi dengan lebih yakin.';
+        $('#quizFeedback').textContent = 'Belum tepat. Untuk melanjutkan, kamu perlu kembali ke video materi dan cek ulang bagian sebelum checkpoint.';
         $('#quizFeedback').classList.remove('hidden');
         const reviewBtn = $('#reviewVideoButton');
+        const submitBtn = $('#submitQuizButton');
         if(reviewBtn) reviewBtn.classList.remove('hidden');
+        if(submitBtn){ submitBtn.disabled = true; submitBtn.classList.add('disabled'); submitBtn.textContent = 'Kembali ke video dulu ya'; }
         return;
       }
       state.quizPassed = true;
@@ -1238,6 +1418,8 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
       $('#quizModal').classList.add('hidden');
       $('#quizFeedback').classList.add('hidden');
       $('#reviewVideoButton').classList.add('hidden');
+      const submitBtn = $('#submitQuizButton');
+      if(submitBtn){ submitBtn.disabled = false; submitBtn.classList.remove('disabled'); submitBtn.textContent = 'Kunci Jawaban & Simpan Nilai 💾'; }
       state.selectedQuizOption = null;
       const triggerAt = Number(quiz?.triggerAt || 0);
       const rewindTo = Math.max(0, triggerAt - 25);
@@ -1254,6 +1436,8 @@ Sambil menunggu informasi hasil review resmi dikirimkan langsung ke alamat email
 
     function stopVideo(){
       clearInterval(state.videoCheckHandle);
+      clearInterval(state.videoTimeHandle);
+      state.videoTimeHandle = null;
       if(state.player && state.player.destroy){
         try{ state.player.destroy(); }catch(e){}
       }
