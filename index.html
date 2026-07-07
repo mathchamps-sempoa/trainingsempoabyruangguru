@@ -116,6 +116,31 @@
       color:var(--ink);outline:0;box-shadow:0 8px 18px rgba(23,50,77,.04);transition:.2s;
     }
     .input:focus{border-color:rgba(31,122,224,.55);box-shadow:0 0 0 4px rgba(31,122,224,.10)}
+
+    .password-field{
+      position:relative;
+    }
+    .password-field .input{
+      padding-right:96px;
+    }
+    .password-toggle{
+      position:absolute;
+      right:10px;
+      top:50%;
+      transform:translateY(-50%);
+      height:36px;
+      padding:0 12px;
+      border-radius:12px;
+      border:1px solid #d7eaff;
+      background:#f7fbff;
+      color:#0a5ea8;
+      font-size:12px;
+      font-weight:900;
+      cursor:pointer;
+    }
+    .password-toggle:hover{
+      background:#eef7ff;
+    }
     .primary-btn,.secondary-btn,.ghost-btn,.danger-btn{
       display:inline-flex;align-items:center;justify-content:center;gap:9px;border-radius:17px;font-weight:900;transition:.2s;text-align:center;
     }
@@ -629,7 +654,6 @@
         </div>
         <h2>Masuk ke Academy</h2>
         <p class="hint">Masukkan email pendaftaran dan password resmi dari tim Ruangguru.</p>
-        <div class="login-support-note">Belum bisa masuk? Hubungi tim Ruangguru dengan email pendaftaran yang kamu gunakan.</div>
         <form id="loginForm">
           <div class="form-group">
             <label for="emailInput">Email peserta</label>
@@ -637,10 +661,14 @@
           </div>
           <div class="form-group">
             <label for="passwordInput">Password akses</label>
-            <input id="passwordInput" class="input" type="password" placeholder="Masukkan password" autocomplete="current-password" required>
+            <div class="password-field">
+              <input id="passwordInput" class="input" type="password" placeholder="Masukkan password" autocomplete="current-password" required>
+              <button id="togglePasswordButton" class="password-toggle" type="button" aria-label="Tampilkan password">Lihat</button>
+            </div>
           </div>
           <button id="loginButton" class="primary-btn wide" type="submit">Masuk ke Academy</button>
           <div id="loginAlert" class="alert error hidden"></div>
+          <div id="loginSupportNote" class="login-support-note hidden">Belum bisa masuk? Hubungi tim Ruangguru dengan email pendaftaran yang kamu gunakan.</div>
         </form>
       </div>
     </section>
@@ -916,11 +944,21 @@
       return text;
     }
 
+    function shouldShowLoginSupport(message){
+      return /belum terdaftar|email.*tidak.*terdaftar|email.*belum/i.test(String(message || ''));
+    }
+
     function showLoginAlert(message, type = 'error'){
+      const visibleMessage = sanitizeVisibleMessage(message);
       const el = $('#loginAlert');
-      el.textContent = sanitizeVisibleMessage(message);
+      el.textContent = visibleMessage;
       el.className = `alert ${type}`;
       el.classList.remove('hidden');
+
+      const supportNote = $('#loginSupportNote');
+      if(supportNote){
+        supportNote.classList.toggle('hidden', !shouldShowLoginSupport(message));
+      }
     }
     function setButtonLoading(button, isLoading, label){
       if(!button.dataset.originalText) button.dataset.originalText = button.innerHTML;
@@ -928,9 +966,22 @@
       button.innerHTML = isLoading ? '<span class="loader"></span> Memproses...' : (label || button.dataset.originalText);
     }
 
+    const togglePasswordButton = $('#togglePasswordButton');
+    if(togglePasswordButton){
+      togglePasswordButton.addEventListener('click', () => {
+        const input = $('#passwordInput');
+        const isHidden = input.type === 'password';
+        input.type = isHidden ? 'text' : 'password';
+        togglePasswordButton.textContent = isHidden ? 'Sembunyikan' : 'Lihat';
+        togglePasswordButton.setAttribute('aria-label', isHidden ? 'Sembunyikan password' : 'Tampilkan password');
+      });
+    }
+
     $('#loginForm').addEventListener('submit', async (event) => {
       event.preventDefault();
       $('#loginAlert').classList.add('hidden');
+      const supportNote = $('#loginSupportNote');
+      if(supportNote) supportNote.classList.add('hidden');
       const btn = $('#loginButton');
       setButtonLoading(btn, true);
       try{
