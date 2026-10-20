@@ -1740,6 +1740,71 @@
       color: #415b74;
     }
 
+    .help-item b {
+      display: block;
+
+      color: var(--ink);
+
+      font-size: 15px;
+
+      margin-bottom: 6px;
+    }
+
+    .help-item p {
+      margin: 0;
+    }
+
+    .help-item ul {
+      margin: 8px 0 0;
+
+      padding-left: 20px;
+
+      display: grid;
+
+      gap: 6px;
+    }
+
+    .help-callout {
+      margin-top: 20px;
+
+      padding: 18px 20px;
+
+      border-radius: 22px;
+
+      background:
+        linear-gradient(
+          135deg,
+          #eefaff,
+          #fff8ea
+        );
+
+      border:
+        1px solid var(--line);
+
+      color: var(--ink);
+
+      box-shadow:
+        var(--soft-shadow);
+    }
+
+    .help-callout h4 {
+      margin: 0 0 8px;
+
+      font-size: 17px;
+
+      color: var(--blue-dark);
+
+      letter-spacing: -.02em;
+    }
+
+    .help-callout p {
+      margin: 0;
+
+      color: #334e68;
+
+      line-height: 1.65;
+    }
+
 
     /* ==========================================
        MODAL
@@ -5220,79 +5285,75 @@
             </h3>
 
             <p>
-              Kalau ada kendala saat mengakses
-              materi setelah berhasil masuk,
-              cek beberapa hal di bawah ini terlebih dahulu.
+              Apabila terdapat kendala saat mengakses materi setelah berhasil masuk, silakan periksa beberapa hal berikut terlebih dahulu:
             </p>
 
 
             <div class="help-list">
 
               <div class="help-item">
-                <b>1. Section masih terkunci</b>
-                <br>
-                Learning Journey utama dikerjakan berurutan:
-                Pre-Test → Video Materi → Post-Test → Section berikutnya.
+                <b>1. Alur Belajar Terkunci</b>
+                <p>
+                  Materi wajib diselesaikan secara berurutan: <strong>Pre-Test → Video Materi → Post-Test → Section Berikutnya</strong>. Pastikan tahapan sebelumnya telah tuntas agar bagian selanjutnya terbuka.
+                </p>
               </div>
 
 
               <div class="help-item">
-                <b>2. Modul Latihan Bonus</b>
-                <br>
-                Modul Latihan merupakan materi tambahan.
-                Modul terbuka setelah Post-Test terekam,
-                tetapi tidak menjadi tahap wajib
-                dalam progress utama.
+                <b>2. Video Mengulang atau Reset Sendiri</b>
+                <p>
+                  Sistem dilengkapi <strong>Fitur Fokus Otomatis</strong>. Video akan otomatis mengulang ke materi sebelumnya apabila:
+                </p>
+                <ul>
+                  <li>Membuka tab atau aplikasi lain saat video diputar (tetap berada di tab materi hingga video selesai).</li>
+                  <li>Melewatkan atau salah menjawab kuis interaktif (<em>pop-up quiz</em>) di tengah video.</li>
+                  <li><strong>Solusi teknis:</strong> Apabila video mengalami kendala pemutaran atau penyimpanan akun Google penuh, buka halaman menggunakan <strong>Mode Incognito (Penyamaran)</strong> atau profil peramban lain, serta pastikan koneksi internet stabil.</li>
+                </ul>
               </div>
 
 
               <div class="help-item">
-                <b>3. Data Form belum terekam</b>
-                <br>
-                Kalau baru submit Google Form,
-                tunggu beberapa detik lalu klik
-                Cek Progress Form atau Sinkronkan.
+                <b>3. Progres Pre-Test / Post-Test Belum Terekam</b>
+                <ul>
+                  <li><strong>Pengecekan Email:</strong> Pastikan penulisan alamat email pada Google Form sama persis (tanpa kesalahan ketik atau spasi tambahan) dengan email yang terdaftar pada akun pelatihan.</li>
+                  <li><strong>Sinkronisasi Data:</strong> Setelah mengirimkan (<em>submit</em>) formulir, tunggu beberapa detik lalu klik tombol <strong>Cek Progress Form</strong> atau <strong>Sinkronkan</strong>.</li>
+                </ul>
               </div>
 
 
               <div class="help-item">
-                <b>4. Video tidak merespons</b>
-                <br>
-                Refresh halaman lalu buka kembali
-                video dari section yang sedang dipelajari.
-                Pastikan koneksi internet stabil.
+                <b>4. Modul Latihan Bonus</b>
+                <p>
+                  Modul ini bersifat materi pengayaan tambahan dan tidak wajib dikerjakan pada masa seleksi atau pelatihan ini. Akses modul dan materi latihan lengkap akan terbuka secara otomatis setelah Anda resmi aktif menjadi Coach Sempoa Ruangguru.
+                </p>
               </div>
 
 
               <div class="help-item">
-                <b>5. Progress belum berubah</b>
-                <br>
-                Pastikan email di Google Form
-                sama persis dengan email
-                yang digunakan saat masuk ke Academy.
+                <b>5. Masa Akses Pelatihan</b>
+                <p>
+                  Akses pelatihan utama berlaku selama <strong>72 jam (3 hari)</strong> terhitung sejak pertama kali materi diakses. Pastikan seluruh materi wajib selesai sebelum batas waktu berakhir.
+                </p>
               </div>
 
 
               <div class="help-item">
-                <b>6. Masa akses</b>
-                <br>
-                Akses utama berlangsung selama 72 jam
-                sejak akses pertama.
-                Kode perpanjangan hanya dapat digunakan
-                sesuai arahan tim setelah akses utama berakhir.
+                <b>6. Keamanan Akun</b>
+                <p>
+                  <strong>Kode Akses Training</strong> hanya digunakan untuk mengakses web pelatihan ini. Tim Ruangguru tidak pernah meminta kata sandi (<em>password</em>) email, akun Google, atau akun pribadi lainnya.
+                </p>
               </div>
 
+            </div>
 
-              <div class="help-item">
-                <b>7. Tentang Kode Akses Training</b>
-                <br>
-                Kode Akses Training hanya digunakan
-                untuk membuka pelatihan ini.
-                Tim tidak meminta password akun
-                Ruangguru, Google, email,
-                atau akun pribadi lainnya.
-              </div>
 
+            <div class="help-callout">
+              <h4>
+                Butuh Bantuan Lebih Lanjut? 💬
+              </h4>
+              <p>
+                Apabila kendala teknis belum terselesaikan melalui langkah-langkah di atas, silakan hubungi narahubung <strong>Tim Talent Acquisition (TA)</strong> yang mengundang Anda melalui email. Mohon lampirkan tangkapan layar (<em>screenshot</em>) kendala beserta alamat email yang terdaftar pada akun pelatihan.
+              </p>
             </div>
 
           </article>
